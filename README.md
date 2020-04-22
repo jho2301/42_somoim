@@ -119,3 +119,40 @@ yjeon
   2. 볼트 공식문서 학습
 
   3. 타입스크립트 학습
+  
+## 20200422 (수)
+
+
+# 상세 시나리오
+
+CRUD
+- C
+/somoim register
+모달창 활용
+모임이름, 간단한 설명, 참여할 수 있는 그룹 url, 소모임 잘 나타내는 이모티콘을 골라라
+- R
+/somoim list
+인터랙티브 메세지 드롭다운
+메세지 양식
+소모임 이모티콘
+*42풋살동아리* 
+개발도 좋아요 (develop 아님 ㅎ)
+from @hjeon 
+Join 버튼
+- D
+/somoim unregister
+모달창 활용
+자신이 만든 모임 드랍다운 리스트
+- ETC
+/somoim help 커맨드 가이드
+/somoim list help 캠퍼스 이름 리스트
+성과
+성과
+
+- gitflow 도입
+- command listener 기능 구현
+- vscode liveshare를 이용한 페어 프로그래밍
+- 향후 계획
+
+타입스크립트 도입
+각 커맨드 프로토타입 구현
