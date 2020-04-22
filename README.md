@@ -75,6 +75,7 @@
 **## 20200422 (수)**
 
 - 상세 시나리오
+
   - CRUD
     - C
       - /somoim register
@@ -98,11 +99,15 @@
     - ETC
       - /somoim help 커맨드 가이드
       - /somoim list help 캠퍼스 이름 리스트		
+      
 - 성과
+
   - gitflow 도입
   - command listener 기능 구현
   - vscode liveshare를 이용한 페어 프로그래밍
+  
 - 향후 계획
+
   1. 타입스크립트 도입
   2. 각 커맨드 프로토타입 구현
 
