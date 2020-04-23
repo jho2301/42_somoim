@@ -30,22 +30,22 @@ C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했�
 
 ## We are..
 
-hjeon
-    역할: 팀장
-    핵심기여역량: 프로젝트 기획 / 관리,  소스 개발, 관련 기술 리서치
+- hjeon  
+   - 역할: 팀장
+   - 핵심기여역량: 프로젝트 기획 / 관리,  소스 개발, 관련 기술 리서치
 
-dohkim
-    역할: 팀원
-    핵심기여역량: 프로젝트 기획, 소스 개발, 관련 기술 리서치
+- dohkim
+   - 역할: 팀원
+   - 핵심기여역량: 프로젝트 기획, 소스 개발, 관련 기술 리서치
 
-yjeon
-	여건상 미 참여
+- yjeon
+ - 여건상 미 참여
 
 ## 개발 환경
 
-개발 도구: Node.js, AWS, Bolt, MySQL
-협업 도구: github(with gitflow), Jira, slack, hangout, discord, vscode liveshare
-개발 방식: 페어 프로그래밍, 기능별 분담 개발
+- 개발 도구: Node.js, AWS, Bolt, MySQL
+- 협업 도구: github(with gitflow), Jira, slack, hangout, discord, vscode liveshare
+- 개발 방식: 페어 프로그래밍, 기능별 분담 개발
 
 
 
