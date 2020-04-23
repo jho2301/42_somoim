@@ -1,4 +1,5 @@
 import { App } from '@slack/bolt';
+import blocks from './list_msg_block';
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -9,7 +10,7 @@ app.command('/somoim', async ({ command, ack, say }) => {
   await ack();
 
   if (`${command.text}` === 'register') await say('you called register');
-  else if (`${command.text}` === 'list') await say('you called list');
+  else if (`${command.text}` === 'list') await say(blocks);
   else if (`${command.text}` === 'unregister') await say('you called unregister');
 });
 
