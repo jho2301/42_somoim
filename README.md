@@ -44,7 +44,7 @@ yjeon
 ## 개발 환경
 
 개발 도구: Node.js, AWS, Bolt, MySQL
-협업 도구: github(with gitflow), slack, hangout, vscode liveshare
+협업 도구: github(with gitflow), Jira, slack, hangout, discord, vscode liveshare
 개발 방식: 페어 프로그래밍, 기능별 분담 개발
 
 
