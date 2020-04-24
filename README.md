@@ -30,22 +30,22 @@ C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했�
 
 ## We are..
 
-hjeon
-    역할: 팀장
-    핵심기여역량: 프로젝트 기획 / 관리,  소스 개발, 관련 기술 리서치
+- hjeon  
+  - 역할: 팀장
+  - 핵심기여역량: 프로젝트 기획 / 관리,  소스 개발, 관련 기술 리서치
 
-dohkim
-    역할: 팀원
-    핵심기여역량: 프로젝트 기획, 소스 개발, 관련 기술 리서치
+- dohkim
+  - 역할: 팀원
+  - 핵심기여역량: 프로젝트 기획, 소스 개발, 관련 기술 리서치
 
-yjeon
-	여건상 미 참여
+- yjeon
+ - 여건상 미 참여
 
 ## 개발 환경
 
-개발 도구: Node.js, AWS, Bolt, MySQL
-협업 도구: github(with gitflow), slack, hangout, vscode liveshare
-개발 방식: 페어 프로그래밍, 기능별 분담 개발
+- 개발 도구: Node.js, AWS, Bolt, MySQL
+- 협업 도구: github(with gitflow), Jira, slack, hangout, discord, vscode liveshare
+- 개발 방식: 페어 프로그래밍, 기능별 분담 개발
 
 
 
@@ -122,37 +122,76 @@ yjeon
 
 ## 20200422 (수)
 
+### 상세 시나리오
 
-# 상세 시나리오
+- Create
 
-CRUD
-- C
-/somoim register
-모달창 활용
-모임이름, 간단한 설명, 참여할 수 있는 그룹 url, 소모임 잘 나타내는 이모티콘을 골라라
+  - /somoim register
+  - 모달창 활용
+  - 모임이름, 간단한 설명, 참여할 수 있는 그룹 url, 소모임 잘 나타내는 이모티콘을 골라라
+
 - R
-/somoim list
-인터랙티브 메세지 드롭다운
-메세지 양식
-소모임 이모티콘
-*42풋살동아리*
-개발도 좋아요 (develop 아님 ㅎ)
-from @hjeon
-Join 버튼
+
+  - /somoim list
+
+  - 동작 플로우
+
+    1. 인터랙티브  드롭다운 (리스트를 불러올 캠퍼스 선택)
+
+    2.  ``` txt
+        :soccer: *42풋살동아리*                               Join 버튼
+        설명 : 개발도 좋아요 (develop 아님 ㅎ)
+        from @hjeon
+         :soccer: *42동물의숲*                                Join 버튼
+        설명 : 모동숲 좋아요 
+        from @hjeon
+        :soccer: *42몽환의숲*                                 Join 버튼
+        설명 : 몽환숲 좋아요 
+        from @hjeon
+        ```
+
+    
+
 - D
-/somoim unregister
-모달창 활용
-자신이 만든 모임 드랍다운 리스트
+
+  - /somoim unregister
+  - 모달창 활용
+  - 자신이 만든 모임 (드랍다운 리스트) 선택 후 삭제
+
 - ETC
-/somoim help 커맨드 가이드
-/somoim list help 캠퍼스 이름 리스트
-성과
-성과
+
+  - /somoim help 커맨드 가이드
+
+### 성과 
 
 - gitflow 도입
 - command listener 기능 구현
 - vscode liveshare를 이용한 페어 프로그래밍
-- 향후 계획
 
-타입스크립트 도입
-각 커맨드 프로토타입 구현
+### 향후 계획
+
+- 타입스크립트 도입
+
+- 각 커맨드 프로토타입 구현
+
+  
+
+## 20200423 (목)
+
+### 성과 
+
+- typescript, eslint, prittier 도입
+- 슬랙봇 기능 create, read의 ui 개발
+
+### 장애물 / 아이디어
+
+- 캠퍼스 분류 아이디어: 유저의 이메일 정보를 받아와 분류, 안되면 유저가 직접 선택!
+- 이모지 입력: 현재는 유저가 직접 이모지 명령어를 찾아 입력해야함. emoji picker를 봇에 도입할 수는 없을까?
+
+### 향후 계획
+
+- 타입스크립트 학습.
+
+- 유저가 커맨드 입력 시 ui를 띄워주도록 함.
+
+  
