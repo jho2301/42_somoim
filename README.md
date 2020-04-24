@@ -138,17 +138,17 @@ C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했�
 
     1. 인터랙티브  드롭다운 (리스트를 불러올 캠퍼스 선택)
 
-    2.  ``` txt
-        :soccer: *42풋살동아리*                               Join 버튼
-        설명 : 개발도 좋아요 (develop 아님 ㅎ)
-        from @hjeon
-         :soccer: *42동물의숲*                                Join 버튼
-        설명 : 모동숲 좋아요 
-        from @hjeon
-        :soccer: *42몽환의숲*                                 Join 버튼
-        설명 : 몽환숲 좋아요 
-        from @hjeon
-        ```
+    2. ``` txt
+       :soccer: *42풋살동아리*                               Join 버튼
+       설명 : 개발도 좋아요 (develop 아님 ㅎ)
+       from @hjeon
+        :soccer: *42동물의숲*                                Join 버튼
+       설명 : 모동숲 좋아요 
+       from @hjeon
+       :soccer: *42몽환의숲*                                 Join 버튼
+       설명 : 몽환숲 좋아요 
+       from @hjeon
+       ```
 
     
 
@@ -195,3 +195,21 @@ C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했�
 - 유저가 커맨드 입력 시 ui를 띄워주도록 함.
 
   
+
+## 20200424 (금)
+
+### 성과 
+
+- register block 및 list block 표출 확인
+- Javascript로 환경 설정
+
+### 장애물 / 아이디어
+
+- modal에서 한글이 깨져서 나옴. 방법을 찾아야함
+- 볼트 Framework 가 완벽하게 Typescript를 지원하지 않음. Javascript 환경으로 바꿈.
+
+### 향후 계획
+
+- delete 만들기
+
+- 데이터베이스 모듈 적용
