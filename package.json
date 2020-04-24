@@ -1,8 +1,21 @@
 {
   "name": "42_somoim",
   "version": "1.0.0",
-  "description": "",
+  "description": "팀명: 미안하다. 이거 보여주려고 어그로 끌었다.\r     프로젝트명: 42 소모임 슬랙봇",
   "main": "index.js",
+  "dependencies": {
+    "@slack/bolt": "^2.0.1",
+    "dotenv": "^8.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "prettier": "^2.0.5",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,19 +28,5 @@
   "bugs": {
     "url": "https://github.com/jho2301/42_Somoim/issues"
   },
-  "homepage": "https://github.com/jho2301/42_Somoim#readme",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^2.29.0",
-    "@typescript-eslint/parser": "^2.29.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "typescript": "^3.8.3"
-  },
-  "dependencies": {
-    "@slack/bolt": "^2.0.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.3",
-    "prettier": "^2.0.5"
-  }
+  "homepage": "https://github.com/jho2301/42_Somoim#readme"
 }
