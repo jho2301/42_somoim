@@ -1,4 +1,5 @@
-export default {
+// eslint-disable-next-line import/prefer-default-export
+const somoimList = {
   blocks: [
     {
       type: 'section',
@@ -133,3 +134,5 @@ export default {
     },
   ],
 };
+
+module.exports = somoimList;
