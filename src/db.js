@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
 );
 
 //set connection
-export function init_db() {
+function init_db() {
 
 	//define Model
 
@@ -51,3 +51,9 @@ export function init_db() {
 	Somoim.sync({ force: true })
 	return (Somoim);
 }
+
+const SomoimDB = init_db();
+
+export default SomoimDB;
+
+
