@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 const dotenv = require('dotenv');
 const { App } = require('@slack/bolt');
+const { SomoimDB } = require('./db');
 
 dotenv.config();
 
