@@ -41,6 +41,10 @@ function init_db() {
 			registant_name: {
 				type: Sequelize.STRING,
 				allowNull: false
+			},
+			represent_emoji: {
+				type: Sequelize.STRING,
+				allowNull: false
 			}
 		},
 		{
@@ -48,7 +52,7 @@ function init_db() {
 			modelName: 'somoim'
 		}
 	);
-	Somoim.sync({ force: true })
+	Somoim.sync({ alter: true })
 	return (Somoim);
 }
 
