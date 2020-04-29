@@ -257,3 +257,21 @@ C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했�
 
 - Bolt action 학습 및 적용
 - 슬랙봇이 데이터를 db를 통해 입력, 출력함
+
+##  20200429 (수)
+
+### 성과
+
+- hyekim 영입 및 브리핑
+- OAuth Permission 개념 재정립
+
+### 장애물 / 아이디어
+
+- suffle command를 이용해 list suffle
+- Serverless research
+
+### 향후 계획
+
+- Bolt action 학습 및 적용
+- Sequelize ORM 학습 및 적용
+- 배포 (EC2 or Serverless)
