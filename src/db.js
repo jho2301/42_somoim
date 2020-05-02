@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize');
-const dotenv = require('dotenv');
+const Sequelize = require("sequelize");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME || 'somoim_db',
-  process.env.DB_USER || 'root',
-  process.env.DB_PASSWORD || '',
+  process.env.DB_NAME || "somoim_db",
+  process.env.DB_USER || "root",
+  process.env.DB_PASSWORD || "",
   {
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql',
+    host: process.env.DB_HOST || "localhost",
+    dialect: "mysql",
   }
 );
 
@@ -30,7 +30,7 @@ function initDB() {
       somoim_name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       description: {
         type: Sequelize.STRING,
@@ -49,7 +49,7 @@ function initDB() {
     },
     {
       sequelize,
-      modelName: 'somoim',
+      modelName: "somoim",
     }
   );
   Somoim.sync();
