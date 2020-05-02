@@ -2,7 +2,7 @@
 const dotenv = require("dotenv");
 const { App } = require("@slack/bolt");
 const { SomoimDB } = require("./db");
-const { getUserCampus, Campus } = require("./campus_classification");
+const { getUserCampus } = require("./campus_classification");
 
 dotenv.config();
 
@@ -244,31 +244,68 @@ async function register(body, context, client) {
               emoji: true,
             },
           },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "Select to advertise (optional)",
-            },
-            accessory: {
-              type: "checkboxes",
-              options: [
-                {
-                  text: {
-                    type: "plain_text",
-                    text: "advertise to random channel",
-                    emoji: true,
-                  },
-                  description: {
-                    type: "plain_text",
-                    text: "to your own campus random channel",
-                    emoji: true,
-                  },
-                  value: "advertise",
-                },
-              ],
-            },
-          },
+        //   {
+        //     type: "section",
+        //     text: {
+        //       type: "mrkdwn",
+        //       text: "Select to advertise (optional)",
+        //     },
+        //     accessory: {
+        //       type: "checkboxes",
+        //       action_id: "advertise_checkbox",
+        //       initial_options: [{
+        //         value: "advertise",
+        //         text: {
+        //           type: "plain_text",
+        //           text: "advertise to random channel",
+        //           emoji: true,
+        //         },
+        //         description: {
+        //           type: "plain_text",
+        //           text: "to your own campus random channel",
+        //           emoji: true,
+        //         },
+        //       },],
+        //       options: [
+        //         {
+        //           value: "advertise",
+        //           text: {
+        //             type: "plain_text",
+        //             text: "advertise to random channel",
+        //             emoji: true,
+        //           },
+        //           description: {
+        //             type: "plain_text",
+        //             text: "to your own campus random channel",
+        //             emoji: true,
+        //           },
+        //         },
+        //       ],
+        //     },
+		//   },
+		{
+      "type": "input",
+      "optional": true,
+			"element": {
+				"type": "checkboxes",
+				"options": [
+					{
+						"text": {
+							"type": "plain_text",
+							"text": "advertise to your own campus random channel",
+							"emoji": true
+						},
+						"value": "advertise_checkbox"
+					}
+				],
+				"action_id": "advertise_action",
+			},
+			"label": {
+				"type": "plain_text",
+				"text": "Optional advertise",
+				"emoji": true
+			}
+		}
         ],
       },
     });
@@ -404,6 +441,7 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
   const desc = view.state.values[blockId].description.value;
   blockId = view.blocks[5].block_id;
   const url = view.state.values[blockId].somoim_url.value;
+  
 
     await SomoimDB.create({
       campus: campusName,
@@ -440,8 +478,16 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
           }
         ]
       }})
-    }
-    ).catch(err => {
+	  blockId = view.blocks[6].block_id;
+      if (view.state.values[blockId].advertise_action.selected_options) {
+        app.client.chat.postMessage({
+          token: process.env.SLACK_BOT_TOKEN,
+          channel: 'making-slackbot',
+          user: body.user.id,
+          text: `Welcome!:party::party:, New ${body.user.id}'s somoim got registered now. join now`,
+        });
+      }
+    }).catch(err => {
       console.log('failed to create\n', err);
       client.views.open({
         token: context.botToken,
@@ -469,7 +515,7 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
           }
         ]
       }})
-    });
+    })
   }
 );
 
