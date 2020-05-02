@@ -291,3 +291,21 @@ C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했�
 - Register 기능 중 각 캠퍼스 random 채널 포스팅 기능 구현
 - Sequelize ORM Pagination 방법 적용
 - 배포 (EC2)
+
+##  20200502 (토)
+
+### 성과
+
+- Register 완벽 구현 (랜덤방 홍보 기능 추가)
+- show list 기능 50% 구현 (페이지네이션 고려할 것)
+
+### 장애물 / 아이디어
+
+- slack block의 button 속성 중 url의 유효성 검사를 진행해야한다. (규칙 미 준수시 에러 발생함)
+- showlist의 페이지네이션을 어떻게 수행할 것인지.
+
+### 향후 계획
+
+- show list, unregister 기능 100% 구현
+- 텍스트, ui 개선 (필수)
+- 배포 (EC2)
