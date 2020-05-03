@@ -1,63 +1,61 @@
-const Sequelize = require('sequelize');
-const dotenv = require('dotenv');
+const Sequelize = require("sequelize");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 const sequelize = new Sequelize(
-	process.env.DB_NAME || 'somoim_db',
-	process.env.DB_USER || 'root',
-	process.env.DB_PASSWORD || '',
-	{
-		host: process.env.DB_HOST || 'localhost',
-		dialect: 'mysql'
-	}
+  process.env.DB_NAME || "somoim_db",
+  process.env.DB_USER || "root",
+  process.env.DB_PASSWORD || "",
+  {
+    host: process.env.DB_HOST || "localhost",
+    dialect: "mysql",
+  }
 );
 
-//set connection
-function init_db() {
+// set connection
+// define Model
 
-	//define Model
+function initDB() {
+  const { Model } = Sequelize;
 
-	const Model = Sequelize.Model;
+  class Somoim extends Model {}
 
-	class Somoim extends Model { }
-
-	Somoim.init(
-		{
-			somoim_name: {
-				type: Sequelize.STRING,
-				allowNull: false
-			},
-			description: {
-				type: Sequelize.STRING,
-			},
-			somoim_url: {
-				type: Sequelize.STRING,
-			},
-			campus: {
-				type: Sequelize.STRING,
-				allowNull: false
-			},
-			registant_name: {
-				type: Sequelize.STRING,
-				allowNull: false
-			},
-			represent_emoji: {
-				type: Sequelize.STRING,
-				allowNull: false
-			}
-		},
-		{
-			sequelize,
-			modelName: 'somoim'
-		}
-	);
-	Somoim.sync({ alter: true })
-	return (Somoim);
+  Somoim.init(
+    {
+      campus: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      somoim_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      description: {
+        type: Sequelize.STRING,
+      },
+      somoim_url: {
+        type: Sequelize.STRING,
+      },
+      registant_name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      represent_emoji: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "somoim",
+    }
+  );
+  Somoim.sync();
+  return Somoim;
 }
 
-const SomoimDB = init_db();
+const SomoimDB = initDB();
 
-export default SomoimDB;
-
-
+exports.SomoimDB = SomoimDB;

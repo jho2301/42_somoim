@@ -13,12 +13,12 @@ const Campus = {
 	HIVE: 12
 }
 
-async function get_user_campus(email) {
-	email = email.split('@');
-	if (email[1].indexOf('student') !== -1)
-		email = email[1].split('student.');
+async function getUserCampus(email) {
+	let emailTemp = email.split('@');
+	if (emailTemp[1].indexOf('student') !== -1)
+		emailTemp = emailTemp[1].split('student.');
 
-	switch (email[1]) {
+	switch (emailTemp[1]) {
 		case '1337.ma':
 			return (Campus.MAROC1337);
 		case '19.be':
@@ -41,8 +41,10 @@ async function get_user_campus(email) {
 			return (Campus.TOKYO);
 		case 'codam.nl':
 			return (Campus.CODAM);
+		default :
+			return (-1);
 	}
 }
 
-exports.get_user_campus = get_user_campus;
+exports.getUserCampus = getUserCampus;
 exports.Campus = Campus;
