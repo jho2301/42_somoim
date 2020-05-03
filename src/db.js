@@ -10,10 +10,17 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST || "localhost",
     dialect: "mysql",
+    dialectOptions: {
+      charset: "utf8mb4",
+    },
+    define: {
+      underscored: true,
+      freezeTableName: true,
+      syncOnAssociation: true,
+    },
   }
 );
 
-// set connection
 // define Model
 
 function initDB() {
