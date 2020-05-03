@@ -31,9 +31,23 @@ function createSomoimSection(somoim) {
   };
 
   section.text.text =
+    // eslint-disable-next-line prefer-template
     somoim.represent_emoji + " " + somoim.somoim_name + "\t*<@" + somoim.registant_name + ">*\n" + somoim.description;
   section.accessory.url = somoim.somoim_url;
   return section;
+}
+
+function createSomoimOption(somoim) {
+  const option = {
+    text: {
+      type: "plain_text",
+      text: "",
+    },
+    value: "", // db id
+  };
+  option.text.text = somoim.somoim_name;
+  option.value = `${somoim.id}`;
+  return option;
 }
 
 async function register(body, context, client) {
@@ -166,8 +180,8 @@ async function register(body, context, client) {
   }
 }
 
-async function showList(command, body, context, client) {
-  let listBlock = [
+async function showList(command) {
+  const listBlock = [
     {
       type: "section",
       text: {
@@ -229,89 +243,97 @@ async function showList(command, body, context, client) {
 }
 
 async function unregister(body, context, client) {
+  let unregisterBlock = {
+    type: "modal",
+    callback_id: "unregister",
+    title: {
+      type: "plain_text",
+      text: "Somoim register",
+      emoji: true,
+    },
+    submit: {
+      type: "plain_text",
+      text: "Submit",
+      emoji: true,
+    },
+    close: {
+      type: "plain_text",
+      text: "Cancel",
+      emoji: true,
+    },
+    blocks: [
+      {
+        type: "section",
+        text: {
+          type: "mrkdwn",
+          text: "Hello 👋\n\n Unregister your somoim",
+        },
+      },
+      {
+        type: "divider",
+      },
+      {
+        type: "input",
+        block_id: "unregister_list",
+        label: {
+          type: "plain_text",
+          text: "choose somoim to unregister",
+        },
+        element: {
+          type: "static_select",
+          action_id: "chosen_one",
+          placeholder: {
+            type: "plain_text",
+            text: "소모임 고르기",
+            emoji: true,
+          },
+          options: [
+            // insert data here!
+          ],
+        },
+      },
+    ],
+  };
+
+  const somoims = await SomoimDB.findAll({
+    where: {
+      registant_name: body.user_name,
+    },
+  });
+
+  // eslint-disable-next-line no-restricted-syntax
+  if (!somoims.length) {
+    unregisterBlock = {
+      type: "modal",
+      title: {
+        type: "plain_text",
+        text: "Somoim",
+        emoji: true,
+      },
+      close: {
+        type: "plain_text",
+        text: "Close",
+        emoji: true,
+      },
+      blocks: [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "\nyou don't have a somoim",
+          },
+        },
+      ],
+    };
+  }
+
+  for (const somoim of somoims) unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
+
   try {
     const result = await client.views.open({
       token: context.botToken,
       trigger_id: body.trigger_id,
-      view: {
-        type: "modal",
-        title: {
-          type: "plain_text",
-          text: "Somoim register",
-          emoji: true,
-        },
-        submit: {
-          type: "plain_text",
-          text: "Submit",
-          emoji: true,
-        },
-        close: {
-          type: "plain_text",
-          text: "Cancel",
-          emoji: true,
-        },
-        blocks: [
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "Hello 👋\n\n Unregister your somoim",
-            },
-          },
-          {
-            type: "divider",
-          },
-          {
-            type: "section",
-            text: {
-              type: "mrkdwn",
-              text: "삭제할 소모임을 골라주세요",
-            },
-            accessory: {
-              type: "static_select",
-              placeholder: {
-                type: "plain_text",
-                text: "소모임 고르기",
-                emoji: true,
-              },
-              options: [
-                {
-                  text: {
-                    type: "plain_text",
-                    text: ":deciduous_tree: 모여봐요 모동숲",
-                    emoji: true,
-                  },
-                  value: "value-0",
-                },
-                {
-                  text: {
-                    type: "plain_text",
-                    text: ":soccer: 42 풋살 동아리",
-                    emoji: true,
-                  },
-                  value: "value-1",
-                },
-                {
-                  text: {
-                    type: "plain_text",
-                    text: ":musical_note: 노동요 같이 들어요",
-                    emoji: true,
-                  },
-                  value: "value-2",
-                },
-                {
-                  text: {
-                    type: "plain_text",
-                    text: ":video_game: 42롤",
-                    emoji: true,
-                  },
-                  value: "value-3",
-                },
-              ],
-            },
-          },
-        ],
-      },
+      view: unregisterBlock,
     });
     console.log(result);
   } catch (error) {
@@ -319,7 +341,7 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command("/somoim", async ({ command, ack, body, context, client }) => {
+app.command("/so", async ({ command, ack, body, context, client }) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
@@ -425,6 +447,17 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
         },
       });
     });
+});
+
+app.view("unregister", async ({ ack, body, view, context, client }) => {
+  await ack();
+
+  const result = await SomoimDB.destroy({
+    where: {
+      id: view.state.values.unregister_list.chosen_one.selected_option.value,
+    },
+  });
+  console.log(result);
 });
 
 app.action("btn_join", async ({ ack }) => {
