@@ -180,7 +180,17 @@ async function showList(command, body, context, client) {
     },
   ];
 
+  const userinfo = await app.client.users.info({
+    token: process.env.SLACK_BOT_TOKEN,
+    user: body.user.id,
+  });
+
+  const campusNo = await getUserCampus(userinfo.user.profile.email);
+
   const somoims = await SomoimDB.findAll({
+    where: {
+      campus: campusNo,
+    },
     offset: 0,
     limit: 5,
   });
