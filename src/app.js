@@ -248,7 +248,7 @@ async function unregister(body, context, client) {
     callback_id: "unregister",
     title: {
       type: "plain_text",
-      text: "Somoim register",
+      text: "Somoim Unregisteration",
       emoji: true,
     },
     submit: {
@@ -266,7 +266,7 @@ async function unregister(body, context, client) {
         type: "section",
         text: {
           type: "mrkdwn",
-          text: "Hello 👋\n\n Unregister your somoim",
+          text: " ",
         },
       },
       {
@@ -277,14 +277,14 @@ async function unregister(body, context, client) {
         block_id: "unregister_list",
         label: {
           type: "plain_text",
-          text: "choose somoim to unregister",
+          text: "Select a Somoim to unregister",
         },
         element: {
           type: "static_select",
           action_id: "chosen_one",
           placeholder: {
             type: "plain_text",
-            text: "소모임 고르기",
+            text: "Select a Somoim",
             emoji: true,
           },
           options: [
@@ -307,7 +307,7 @@ async function unregister(body, context, client) {
       type: "modal",
       title: {
         type: "plain_text",
-        text: "Somoim",
+        text: "Somoim Unregistration",
         emoji: true,
       },
       close: {
@@ -320,7 +320,7 @@ async function unregister(body, context, client) {
           type: "section",
           text: {
             type: "mrkdwn",
-            text: "\nyou don't have a somoim",
+            text: "\nThere is no Somoim to unregister :cry:",
           },
         },
       ],
@@ -341,7 +341,7 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command("/so", async ({ command, ack, body, context, client }) => {
+app.command("/somoim", async ({ command, ack, body, context, client }) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
