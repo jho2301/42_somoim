@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-unresolved
-const dotenv = require("dotenv");
-const { App } = require("@slack/bolt");
-const { SomoimDB } = require("./db");
-const { getUserCampusNo, getUserCampusName } = require("./campus_classification");
+const dotenv = require('dotenv');
+const { App } = require('@slack/bolt');
+const { SomoimDB } = require('./db');
+const { getUserCampusNo, getUserCampusName } = require('./campus_classification');
 
 dotenv.config();
 
@@ -11,37 +11,13 @@ const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
 });
 
-function createSomoimSection(somoim) {
-  const section = {
-    type: "section",
-    text: {
-      type: "mrkdwn",
-      text: "",
-    },
-    accessory: {
-      type: "button",
-      text: {
-        type: "plain_text",
-        text: "Join",
-      },
-      url: "",
-      value: "click_me_123",
-      action_id: "button",
-    },
-  };
-
-  section.text.text = `${somoim.represent_emoji} ${somoim.somoim_name}\t*<@${somoim.registant_name}>*\n${somoim.description}`;
-  section.accessory.url = somoim.somoim_url;
-  return section;
-}
-
 function createSomoimOption(somoim) {
   const option = {
     text: {
-      type: "plain_text",
-      text: "",
+      type: 'plain_text',
+      text: '',
     },
-    value: "", // db id
+    value: '', // db id
   };
   option.text.text = somoim.somoim_name;
   option.value = `${somoim.id}`;
@@ -82,129 +58,129 @@ async function register(body, context, client) {
       token: context.botToken,
       trigger_id: body.trigger_id,
       view: {
-        type: "modal",
-        callback_id: "register",
+        type: 'modal',
+        callback_id: 'register',
         title: {
-          type: "plain_text",
-          text: "Somoim Registration",
+          type: 'plain_text',
+          text: 'Somoim Registration',
           emoji: true,
         },
         submit: {
-          type: "plain_text",
-          text: "Submit",
+          type: 'plain_text',
+          text: 'Submit',
           emoji: true,
         },
         close: {
-          type: "plain_text",
-          text: "Cancel",
+          type: 'plain_text',
+          text: 'Cancel',
           emoji: true,
         },
         blocks: [
           {
-            type: "section",
+            type: 'section',
             text: {
-              type: "plain_text",
-              text: ":wave: Hello! Please register your Somoim",
+              type: 'plain_text',
+              text: ':wave: Hello! Please register your Somoim',
               emoji: true,
             },
           },
           {
-            type: "divider",
+            type: 'divider',
           },
           {
-            type: "input",
+            type: 'input',
             label: {
-              type: "plain_text",
+              type: 'plain_text',
               text: "What's the name of your Somoim?",
               emoji: true,
             },
             element: {
-              type: "plain_text_input",
-              action_id: "somoim_name",
+              type: 'plain_text_input',
+              action_id: 'somoim_name',
               placeholder: {
-                type: "plain_text",
-                text: "Name of your Somoim",
+                type: 'plain_text',
+                text: 'Name of your Somoim',
               },
             },
           },
           {
-            type: "input",
+            type: 'input',
             element: {
-              type: "plain_text_input",
-              action_id: "represent_emoji",
+              type: 'plain_text_input',
+              action_id: 'represent_emoji',
               placeholder: {
-                type: "plain_text",
-                text: "e.g.) :soccer:",
+                type: 'plain_text',
+                text: 'e.g.) :soccer:',
               },
             },
             label: {
-              type: "plain_text",
-              text: "Emoji representing your Somoim",
+              type: 'plain_text',
+              text: 'Emoji representing your Somoim',
               emoji: true,
             },
           },
           {
-            type: "input",
+            type: 'input',
             element: {
-              type: "plain_text_input",
-              action_id: "description",
+              type: 'plain_text_input',
+              action_id: 'description',
               placeholder: {
-                type: "plain_text",
-                text: "My Somoim is about...",
+                type: 'plain_text',
+                text: 'My Somoim is about...',
               },
             },
             label: {
-              type: "plain_text",
-              text: "Brief introduction",
+              type: 'plain_text',
+              text: 'Brief introduction',
               emoji: true,
             },
           },
           {
-            type: "input",
+            type: 'input',
             element: {
-              type: "plain_text_input",
-              action_id: "somoim_url",
+              type: 'plain_text_input',
+              action_id: 'somoim_url',
               placeholder: {
-                type: "plain_text",
-                text: "Discord Server, KaKao Talk Open Chat, Slack Workspace, etc...",
+                type: 'plain_text',
+                text: 'Discord Server, KaKao Talk Open Chat, Slack Workspace, etc...',
               },
             },
             label: {
-              type: "plain_text",
-              text: "Somoim URL",
+              type: 'plain_text',
+              text: 'Somoim URL',
               emoji: true,
             },
           },
           {
-            type: "input",
+            type: 'input',
             optional: true,
             element: {
-              type: "checkboxes",
+              type: 'checkboxes',
               initial_options: [
                 {
                   text: {
-                    type: "plain_text",
+                    type: 'plain_text',
                     text: `Promote to #${campusName}_global_random`,
                     emoji: true,
                   },
-                  value: "advertise_checkbox",
+                  value: 'advertise_checkbox',
                 },
               ],
               options: [
                 {
                   text: {
-                    type: "plain_text",
+                    type: 'plain_text',
                     text: `Promote to #${campusName}_global_random`,
                     emoji: true,
                   },
-                  value: "advertise_checkbox",
+                  value: 'advertise_checkbox',
                 },
               ],
-              action_id: "advertise_action",
+              action_id: 'advertise_action',
             },
             label: {
-              type: "plain_text",
-              text: "Promotion",
+              type: 'plain_text',
+              text: 'Promotion',
               emoji: true,
             },
           },
@@ -216,121 +192,49 @@ async function register(body, context, client) {
   }
 }
 
-async function showList(command) {
-  const listBlock = [
-    {
-      type: "section",
-      text: {
-        type: "mrkdwn",
-        text: "*Which somoim would you like to join?* ",
-      },
-    },
-    {
-      type: "divider",
-    },
-  ];
-
-  const userinfo = await app.client.users.info({
-    token: process.env.SLACK_BOT_TOKEN,
-    user: body.user.id,
-  });
-
-  const campusNo = await getUserCampusNo(userinfo.user.profile.email);
-
-  const somoims = await SomoimDB.findAll({
-    where: {
-      campus: campusNo,
-    },
-    offset: 0,
-    limit: 5,
-  });
-  listBlock.push(createSomoimSection(somoims[0]));
-
-  // for (const somoim of somoims) {
-  //   listBlock.push(createSomoimSection(somoim));
-  //   listBlock.push({
-  //     type: "divider",
-  //   });
-  // }
-  // console.log("LEN: ", listBlock.length);
-  // console.log(listBlock);
-
-  // listBlock.push({
-  //   type: "actions",
-  //   elements: [
-  //     {
-  //       type: "button",
-  //       text: {
-  //         type: "plain_text",
-  //         emoji: true,
-  //         text: "Previous",
-  //       },
-  //       value: "go_to_previous_value",
-  //     },
-  //     {
-  //       type: "button",
-  //       text: {
-  //         type: "plain_text",
-  //         emoji: true,
-  //         text: "Next",
-  //       },
-  //       value: "go_to_next_value",
-  //     }
-  //   ],
-  // });
-
-  await app.client.chat.postEphemeral({
-    token: process.env.SLACK_BOT_TOKEN,
-    channel: command.channel_id,
-    user: command.user_id,
-    blocks: listBlock,
-    text: "you called somoim list",
-  });
-}
-
 async function unregister(body, context, client) {
   let unregisterBlock = {
-    type: "modal",
-    callback_id: "unregister",
+    type: 'modal',
+    callback_id: 'unregister',
     title: {
-      type: "plain_text",
-      text: "Somoim Unregisteration",
+      type: 'plain_text',
+      text: 'Somoim Unregisteration',
       emoji: true,
     },
     submit: {
-      type: "plain_text",
-      text: "Submit",
+      type: 'plain_text',
+      text: 'Submit',
       emoji: true,
     },
     close: {
-      type: "plain_text",
-      text: "Cancel",
+      type: 'plain_text',
+      text: 'Cancel',
       emoji: true,
     },
     blocks: [
       {
-        type: "section",
+        type: 'section',
         text: {
-          type: "mrkdwn",
-          text: " ",
+          type: 'mrkdwn',
+          text: ' ',
         },
       },
       {
-        type: "divider",
+        type: 'divider',
       },
       {
-        type: "input",
-        block_id: "unregister_list",
+        type: 'input',
+        block_id: 'unregister_list',
         label: {
-          type: "plain_text",
-          text: "Select a Somoim to unregister",
+          type: 'plain_text',
+          text: 'Select a Somoim to unregister',
         },
         element: {
-          type: "static_select",
-          action_id: "chosen_one",
+          type: 'static_select',
+          action_id: 'chosen_one',
           placeholder: {
-            type: "plain_text",
-            text: "Select a Somoim",
+            type: 'plain_text',
+            text: 'Select a Somoim',
             emoji: true,
           },
           options: [
@@ -350,30 +254,31 @@ async function unregister(body, context, client) {
   // eslint-disable-next-line no-restricted-syntax
   if (!somoims.length) {
     unregisterBlock = {
-      type: "modal",
+      type: 'modal',
       title: {
-        type: "plain_text",
-        text: "Somoim Unregistration",
+        type: 'plain_text',
+        text: 'Somoim Unregistration',
         emoji: true,
       },
       close: {
-        type: "plain_text",
-        text: "Close",
+        type: 'plain_text',
+        text: 'Close',
         emoji: true,
       },
       blocks: [
         {
-          type: "section",
+          type: 'section',
           text: {
-            type: "mrkdwn",
-            text: "\nThere is no Somoim to unregister :cry:",
+            type: 'mrkdwn',
+            text: '\nThere is no Somoim to unregister :cry:',
           },
         },
       ],
     };
   }
 
-  for (const somoim of somoims) unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
+  for (const somoim of somoims)
+    unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
 
   try {
     const result = await client.views.open({
@@ -387,17 +292,162 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command(process.env.COMMAND||"/somoim", async ({ command, ack, body, context, client }) => {
+app.command(process.env.COMMAND || '/somoim', async ({ command, ack, body, context, client }) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
   //   user: command.user_id,
   // });
 
-  if (`${command.text}` === "register") await register(body, context, client);
-  else if (`${command.text}` === "list") await showList(command, body, context, client);
-  else if (`${command.text}` === "unregister") await unregister(body, context, client);
+  if (`${command.text}` === 'register') await register(body, context, client);
+  else if (`${command.text}` === 'list') await showList(command, body, context, client);
+  else if (`${command.text}` === 'unregister') await unregister(body, context, client);
   else await help(command);
+});
+
+function createSomoimSection(somoim) {
+  const section = {
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: '',
+    },
+    accessory: {
+      type: 'button',
+      text: {
+        type: 'plain_text',
+        text: 'Join',
+      },
+      url: '',
+      value: 'click_me_123',
+      action_id: 'join',
+    },
+  };
+  section.text.text =
+    somoim.represent_emoji +
+    ' ' +
+    somoim.somoim_name +
+    '\t*<@' +
+    somoim.registant_name +
+    '>*\n' +
+    somoim.description;
+  section.accessory.url = somoim.somoim_url;
+  return section;
+}
+
+async function createSomoimListBlock(offset, limit, campusNo) {
+  let listBlock = [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: '*Which somoim would you like to join?* ',
+      },
+    },
+    {
+      type: 'divider',
+    },
+  ];
+
+  const { count, rows: somoims } = await SomoimDB.findAndCountAll({
+    where: {
+      campus: campusNo,
+    },
+    offset: offset,
+    limit: limit,
+  });
+
+  for (const somoim of somoims) {
+    listBlock.push(createSomoimSection(somoim));
+    listBlock.push({
+      type: 'divider',
+    });
+  }
+
+  const actionBlock = {
+    type: 'actions',
+    elements: [],
+  };
+  if (offset - limit >= 0) {
+    actionBlock.elements.push({
+      type: 'button',
+      text: {
+        type: 'plain_text',
+        emoji: true,
+        text: 'Previous',
+      },
+      action_id: 'paginate_previous',
+      value: String(offset - limit),
+    });
+  }
+  if (offset + limit < count) {
+    actionBlock.elements.push({
+      type: 'button',
+      text: {
+        type: 'plain_text',
+        emoji: true,
+        text: 'Next',
+      },
+      action_id: 'paginate_next',
+      value: String(offset + limit),
+    });
+  }
+
+  if (actionBlock.elements.length != 0) listBlock.push(actionBlock);
+  if (listBlock.length <= 2) {
+    listBlock.push(
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: 'There is no Somoim on your campus. :sob: \n 　',
+        },
+      },
+      {
+        type: 'divider',
+      }
+    );
+  }
+  return listBlock;
+}
+
+async function showList(command, body, context, client) {
+  const userinfo = await app.client.users.info({
+    token: process.env.SLACK_BOT_TOKEN,
+    user: body.user_id,
+  });
+
+  const campusNo = await getUserCampusNo(userinfo.user.profile.email);
+
+  const listBlock = await createSomoimListBlock(0, 5, campusNo);
+  console.log('list!!!:', listBlock);
+  const result = await app.client.chat.postEphemeral({
+    token: process.env.SLACK_BOT_TOKEN,
+    channel: command.channel_id,
+    user: command.user_id,
+    blocks: listBlock,
+    text: 'you called somoim list',
+  });
+
+  console.log('result', result);
+}
+
+app.action(/paginate.*/, async ({ action, body, ack, respond }) => {
+  try {
+    await ack();
+    console.log(body);
+    const userinfo = await app.client.users.info({
+      token: process.env.SLACK_BOT_TOKEN,
+      user: body.user.id,
+    });
+    const campusNo = await getUserCampusNo(userinfo.user.profile.email);
+    await respond({
+      replace_original: true,
+      blocks: await createSomoimListBlock(parseInt(action.value), 5, campusNo),
+    });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.view('register', async ({ ack, body, view, context, client }) => {
@@ -427,28 +477,28 @@ app.view('register', async ({ ack, body, view, context, client }) => {
     registant_name: body.user.name,
   })
     .then((somoim) => {
-      console.log("data created!! id:", somoim.id);
+      console.log('data created!! id:', somoim.id);
       client.views.open({
         token: context.botToken,
         trigger_id: body.trigger_id,
         view: {
-          type: "modal",
+          type: 'modal',
           title: {
-            type: "plain_text",
-            text: "Registration Success",
+            type: 'plain_text',
+            text: 'Registration Success',
             emoji: true,
           },
           close: {
-            type: "plain_text",
-            text: "Close",
+            type: 'plain_text',
+            text: 'Close',
             emoji: true,
           },
           blocks: [
             {
-              type: "section",
+              type: 'section',
               text: {
-                type: "mrkdwn",
-                text: "\nYou registered for a Somoim list",
+                type: 'mrkdwn',
+                text: '\nYou registered for a Somoim list',
               },
             },
           ],
@@ -459,41 +509,41 @@ app.view('register', async ({ ack, body, view, context, client }) => {
 
       const promotionBlock = [
         {
-          type: "section",
+          type: 'section',
           text: {
-            type: "mrkdwn",
-            text: "*New Somoim Appears!*<:party:><:party:>\n join now ",
+            type: 'mrkdwn',
+            text: '*New Somoim Appears!*<:party:><:party:>\n join now ',
           },
         },
         {
-          type: "divider",
+          type: 'divider',
         },
         {
-          type: "section",
+          type: 'section',
           text: {
-            type: "mrkdwn",
-            text: "",
+            type: 'mrkdwn',
+            text: '',
           },
           accessory: {
-            type: "button",
+            type: 'button',
             text: {
-              type: "",
-              text: "Join",
+              type: '',
+              text: 'Join',
             },
-            url: "",
-            value: "",
-            action_id: "button",
+            url: '',
+            value: '',
+            action_id: 'join',
           },
         },
         {
-          type: "divider",
+          type: 'divider',
         },
       ];
 
       if (view.state.values[blockId].advertise_action.selected_options) {
         app.client.chat.postMessage({
           token: process.env.SLACK_BOT_TOKEN,
-          channel: "making-slackbot",
+          channel: 'making-slackbot',
           user: body.user.id,
           text: `New Somoim Appears!. join now`,
           block: promotionBlock,
@@ -501,28 +551,28 @@ app.view('register', async ({ ack, body, view, context, client }) => {
       }
     })
     .catch((err) => {
-      console.log("failed to create\n", err);
+      console.log('failed to create\n', err);
       client.views.open({
         token: context.botToken,
         trigger_id: body.trigger_id,
         view: {
-          type: "modal",
+          type: 'modal',
           title: {
-            type: "plain_text",
-            text: "Error Occured",
+            type: 'plain_text',
+            text: 'Error Occured',
             emoji: true,
           },
           close: {
-            type: "plain_text",
-            text: "Close",
+            type: 'plain_text',
+            text: 'Close',
             emoji: true,
           },
           blocks: [
             {
-              type: "section",
+              type: 'section',
               text: {
-                type: "mrkdwn",
-                text: "\nThere is a duplicate Somoim name",
+                type: 'mrkdwn',
+                text: '\nThere is a duplicate Somoim name',
               },
             },
           ],
@@ -531,7 +581,7 @@ app.view('register', async ({ ack, body, view, context, client }) => {
     });
 });
 
-app.view("unregister", async ({ ack, body, view, context, client }) => {
+app.view('unregister', async ({ ack, body, view, context, client }) => {
   await ack();
 
   const result = await SomoimDB.destroy({
@@ -542,11 +592,12 @@ app.view("unregister", async ({ ack, body, view, context, client }) => {
   console.log(result);
 });
 
-app.action("btn_join", async ({ ack }) => {
+app.action('join', async ({ ack }) => {
+  console.log('HI\n');
   await ack();
 });
 
 (async () => {
   await app.start(process.env.PORT || 3000);
-  console.log("Bolt app is running!");
+  console.log('Bolt app is running!');
 })();
