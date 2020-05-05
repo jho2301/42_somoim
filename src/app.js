@@ -48,6 +48,26 @@ function createSomoimOption(somoim) {
   return option;
 }
 
+async function help(command) {
+  const helpMessage = [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text:
+          '```\t/somoim register\t\tregister new group\n\t/somoim list\t\t\tlist groups of your campus\n\t/somoim unregister\t  delete one of your groups```',
+      },
+    },
+  ];
+  await app.client.chat.postEphemeral({
+    token: process.env.SLACK_BOT_TOKEN,
+    channel: command.channel_id,
+    user: command.user_id,
+    blocks: helpMessage,
+    text: 'you called somoim list',
+  });
+}
+
 async function register(body, context, client) {
   try {
     const userinfo = await app.client.users.info({
@@ -367,7 +387,7 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command("/so", async ({ command, ack, body, context, client }) => {
+app.command(process.env.COMMAND||"/somoim", async ({ command, ack, body, context, client }) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
@@ -377,9 +397,10 @@ app.command("/so", async ({ command, ack, body, context, client }) => {
   if (`${command.text}` === "register") await register(body, context, client);
   else if (`${command.text}` === "list") await showList(command, body, context, client);
   else if (`${command.text}` === "unregister") await unregister(body, context, client);
+  else await help(command);
 });
 
-app.view("register", async ({ ack, body, view, context, client }) => {
+app.view('register', async ({ ack, body, view, context, client }) => {
   await ack();
 
   const userinfo = await app.client.users.info({
