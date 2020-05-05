@@ -2,7 +2,7 @@
 const dotenv = require("dotenv");
 const { App } = require("@slack/bolt");
 const { SomoimDB } = require("./db");
-const { getUserCampus } = require("./campus_classification");
+const { getUserCampusNo, getUserCampusName } = require("./campus_classification");
 
 dotenv.config();
 
@@ -30,23 +30,30 @@ function createSomoimSection(somoim) {
     },
   };
 
-  section.text.text =
-    somoim.represent_emoji + " " + somoim.somoim_name + "\t*<@" + somoim.registant_name + ">*\n" + somoim.description;
+  section.text.text = `${somoim.represent_emoji} ${somoim.somoim_name}\t*<@${somoim.registant_name}>*\n${somoim.description}`;
   section.accessory.url = somoim.somoim_url;
   return section;
 }
 
 async function register(body, context, client) {
   try {
+    const userinfo = await app.client.users.info({
+      token: process.env.SLACK_BOT_TOKEN,
+      user: body.user_id,
+    });
+
+    const campusNo = await getUserCampusNo(userinfo.user.profile.email);
+    const campusName = await getUserCampusName(campusNo);
+
     await client.views.open({
       token: context.botToken,
       trigger_id: body.trigger_id,
       view: {
         type: "modal",
-        callback_id: "register-view",
+        callback_id: "register",
         title: {
           type: "plain_text",
-          text: "Register Somoim",
+          text: "Somoim Registration",
           emoji: true,
         },
         submit: {
@@ -64,7 +71,7 @@ async function register(body, context, client) {
             type: "section",
             text: {
               type: "plain_text",
-              text: ":wave: Hello!\n\nPlease register your Somoim",
+              text: ":wave: Hello! Please register your Somoim",
               emoji: true,
             },
           },
@@ -73,6 +80,11 @@ async function register(body, context, client) {
           },
           {
             type: "input",
+            label: {
+              type: "plain_text",
+              text: "What's the name of your Somoim?",
+              emoji: true,
+            },
             element: {
               type: "plain_text_input",
               action_id: "somoim_name",
@@ -80,11 +92,6 @@ async function register(body, context, client) {
                 type: "plain_text",
                 text: "Name of your Somoim",
               },
-            },
-            label: {
-              type: "plain_text",
-              text: "What's the name of your Somoim?",
-              emoji: true,
             },
           },
           {
@@ -94,12 +101,12 @@ async function register(body, context, client) {
               action_id: "represent_emoji",
               placeholder: {
                 type: "plain_text",
-                text: "Choose the best emoji for your Somoim",
+                text: "e.g.) :soccer:",
               },
             },
             label: {
               type: "plain_text",
-              text: "Best emoji for your Somoim",
+              text: "Emoji representing your Somoim",
               emoji: true,
             },
           },
@@ -110,12 +117,12 @@ async function register(body, context, client) {
               action_id: "description",
               placeholder: {
                 type: "plain_text",
-                text: "brief introduce",
+                text: "My Somoim is about...",
               },
             },
             label: {
               type: "plain_text",
-              text: "Brief introduce",
+              text: "Brief introduction",
               emoji: true,
             },
           },
@@ -126,12 +133,12 @@ async function register(body, context, client) {
               action_id: "somoim_url",
               placeholder: {
                 type: "plain_text",
-                text: "URL",
+                text: "Discord Server, KaKao Talk Open Chat, Slack Workspace, etc...",
               },
             },
             label: {
               type: "plain_text",
-              text: "Discord/Kakao talk link",
+              text: "Somoim URL",
               emoji: true,
             },
           },
@@ -140,11 +147,21 @@ async function register(body, context, client) {
             optional: true,
             element: {
               type: "checkboxes",
+              initial_options: [
+                {
+                  text: {
+                    type: "plain_text",
+                    text: `Promote to #${campusName}_global_random`,
+                    emoji: true,
+                  },
+                  value: "advertise_checkbox",
+                },
+              ],
               options: [
                 {
                   text: {
                     type: "plain_text",
-                    text: "advertise to your own campus random channel",
+                    text: `Promote to #${campusName}_global_random`,
                     emoji: true,
                   },
                   value: "advertise_checkbox",
@@ -154,7 +171,7 @@ async function register(body, context, client) {
             },
             label: {
               type: "plain_text",
-              text: "Optional advertise",
+              text: "Promotion",
               emoji: true,
             },
           },
@@ -185,7 +202,7 @@ async function showList(command, body, context, client) {
     user: body.user.id,
   });
 
-  const campusNo = await getUserCampus(userinfo.user.profile.email);
+  const campusNo = await getUserCampusNo(userinfo.user.profile.email);
 
   const somoims = await SomoimDB.findAll({
     where: {
@@ -329,7 +346,7 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command("/somoim", async ({ command, ack, body, context, client }) => {
+app.command("/so", async ({ command, ack, body, context, client }) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
@@ -341,14 +358,14 @@ app.command("/somoim", async ({ command, ack, body, context, client }) => {
   else if (`${command.text}` === "unregister") await unregister(body, context, client);
 });
 
-app.view("register-view", async ({ ack, body, view, context, client }) => {
+app.view("register", async ({ ack, body, view, context, client }) => {
   await ack();
 
   const userinfo = await app.client.users.info({
     token: process.env.SLACK_BOT_TOKEN,
     user: body.user.id,
   });
-  const campusName = await getUserCampus(userinfo.user.profile.email);
+  const campusName = await getUserCampusNo(userinfo.user.profile.email);
 
   let blockId = view.blocks[2].block_id;
   const somoimName = view.state.values[blockId].somoim_name.value;
@@ -376,7 +393,7 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
           type: "modal",
           title: {
             type: "plain_text",
-            text: "create success",
+            text: "Registration Success",
             emoji: true,
           },
           close: {
@@ -389,7 +406,7 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
               type: "section",
               text: {
                 type: "mrkdwn",
-                text: "\n성공했어~",
+                text: "\nYou registered for a Somoim list",
               },
             },
           ],
@@ -397,12 +414,47 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
       });
 
       blockId = view.blocks[6].block_id;
+
+      const promotionBlock = [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "*New Somoim Appears!*<:party:><:party:>\n join now ",
+          },
+        },
+        {
+          type: "divider",
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: "",
+          },
+          accessory: {
+            type: "button",
+            text: {
+              type: "",
+              text: "Join",
+            },
+            url: "",
+            value: "",
+            action_id: "button",
+          },
+        },
+        {
+          type: "divider",
+        },
+      ];
+
       if (view.state.values[blockId].advertise_action.selected_options) {
         app.client.chat.postMessage({
           token: process.env.SLACK_BOT_TOKEN,
           channel: "making-slackbot",
           user: body.user.id,
-          text: `Welcome!:party::party:, New ${body.user.id}'s somoim got registered now. join now`,
+          text: `New Somoim Appears!. join now`,
+          block: promotionBlock,
         });
       }
     })
@@ -428,7 +480,7 @@ app.view("register-view", async ({ ack, body, view, context, client }) => {
               type: "section",
               text: {
                 type: "mrkdwn",
-                text: "\n이름이 중복됐어요~",
+                text: "\nThere is a duplicate Somoim name",
               },
             },
           ],
