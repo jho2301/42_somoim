@@ -17,11 +17,19 @@ function createSomoimOption(somoim) {
       type: 'plain_text',
       text: '',
     },
-    value: '', // db id
+    value: '',
   };
   option.text.text = somoim.somoim_name;
   option.value = `${somoim.id}`;
   return option;
+}
+
+function urlFormatter(url) {
+  let urlTemp = url.split('https://');
+  if (urlTemp.length !== 1) return url;
+  urlTemp = url.split('http://');
+  if (urlTemp.length !== 1) return url;
+  return `https://${url}`;
 }
 
 async function help(command) {
@@ -277,8 +285,7 @@ async function unregister(body, context, client) {
     };
   }
 
-  for (const somoim of somoims)
-    unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
+  for (const somoim of somoims) unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
 
   try {
     const result = await client.views.open({
@@ -324,13 +331,7 @@ function createSomoimSection(somoim) {
     },
   };
   section.text.text =
-    somoim.represent_emoji +
-    ' ' +
-    somoim.somoim_name +
-    '\t*<@' +
-    somoim.registant_name +
-    '>*\n' +
-    somoim.description;
+    somoim.represent_emoji + ' ' + somoim.somoim_name + '\t*<@' + somoim.registant_name + '>*\n' + somoim.description;
   section.accessory.url = somoim.somoim_url;
   return section;
 }
@@ -400,9 +401,10 @@ async function createSomoimListBlock(offset, limit, campusNo) {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: 'There is no Somoim on your campus. :sob: \n 　',
+          text: 'There is no Somoim on your campus. :sob: \n Ã£â‚¬â‚¬',
         },
       },
+
       {
         type: 'divider',
       }
@@ -466,7 +468,7 @@ app.view('register', async ({ ack, body, view, context, client }) => {
   blockId = view.blocks[4].block_id;
   const desc = view.state.values[blockId].description.value;
   blockId = view.blocks[5].block_id;
-  const url = view.state.values[blockId].somoim_url.value;
+  const url = urlFormatter(view.state.values[blockId].somoim_url.value);
 
   await SomoimDB.create({
     campus: campusName,
