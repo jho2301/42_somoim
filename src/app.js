@@ -1,8 +1,15 @@
 // eslint-disable-next-line import/no-unresolved
 const dotenv = require('dotenv');
-const { App } = require('@slack/bolt');
-const { SomoimDB } = require('./db');
-const { getUserCampusNo, getUserCampusName } = require('./campus_classification');
+const {
+  App
+} = require('@slack/bolt');
+const {
+  SomoimDB
+} = require('./db');
+const {
+  getUserCampusNo,
+  getUserCampusName
+} = require('./campus_classification');
 
 dotenv.config();
 
@@ -33,22 +40,19 @@ function urlFormatter(url) {
 }
 
 async function help(command) {
-  const helpMessage = [
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text:
-          '```\t/somoim register\t\tregister new group\n\t/somoim list\t\t\tlist groups of your campus\n\t/somoim unregister\t  delete one of your groups```',
-      },
+  const helpMessage = [{
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: '```\t/somoim register\t\tregister new group\n\t/somoim list\t\t\tlist groups of your campus\n\t/somoim unregister\t  delete one of your groups```',
     },
-  ];
+  }, ];
   await app.client.chat.postEphemeral({
     token: process.env.SLACK_BOT_TOKEN,
     channel: command.channel_id,
     user: command.user_id,
     blocks: helpMessage,
-    text: 'you called somoim list',
+    text: 'you called help',
   });
 }
 
@@ -83,8 +87,7 @@ async function register(body, context, client) {
           text: 'Cancel',
           emoji: true,
         },
-        blocks: [
-          {
+        blocks: [{
             type: 'section',
             text: {
               type: 'plain_text',
@@ -164,26 +167,22 @@ async function register(body, context, client) {
             optional: true,
             element: {
               type: 'checkboxes',
-              initial_options: [
-                {
-                  text: {
-                    type: 'plain_text',
-                    text: `Promote to #${campusName}_global_random`,
-                    emoji: true,
-                  },
-                  value: 'advertise_checkbox',
+              initial_options: [{
+                text: {
+                  type: 'plain_text',
+                  text: `Promote to #${campusName}_global_random`,
+                  emoji: true,
                 },
-              ],
-              options: [
-                {
-                  text: {
-                    type: 'plain_text',
-                    text: `Promote to #${campusName}_global_random`,
-                    emoji: true,
-                  },
-                  value: 'advertise_checkbox',
+                value: 'advertise_checkbox',
+              }, ],
+              options: [{
+                text: {
+                  type: 'plain_text',
+                  text: `Promote to #${campusName}_global_random`,
+                  emoji: true,
                 },
-              ],
+                value: 'advertise_checkbox',
+              }, ],
               action_id: 'advertise_action',
             },
             label: {
@@ -219,8 +218,7 @@ async function unregister(body, context, client) {
       text: 'Cancel',
       emoji: true,
     },
-    blocks: [
-      {
+    blocks: [{
         type: 'section',
         text: {
           type: 'mrkdwn',
@@ -245,9 +243,7 @@ async function unregister(body, context, client) {
             text: 'Select a Somoim',
             emoji: true,
           },
-          options: [
-            // insert data here!
-          ],
+          options: [],
         },
       },
     ],
@@ -259,7 +255,6 @@ async function unregister(body, context, client) {
     },
   });
 
-  // eslint-disable-next-line no-restricted-syntax
   if (!somoims.length) {
     unregisterBlock = {
       type: 'modal',
@@ -273,15 +268,13 @@ async function unregister(body, context, client) {
         text: 'Close',
         emoji: true,
       },
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: '\nThere is no Somoim to unregister :cry:',
-          },
+      blocks: [{
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: '\nThere is no Somoim to unregister :cry:',
         },
-      ],
+      }, ],
     };
   }
 
@@ -299,7 +292,13 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command(process.env.COMMAND || '/somoim', async ({ command, ack, body, context, client }) => {
+app.command(process.env.COMMAND || '/somoim', async ({
+  command,
+  ack,
+  body,
+  context,
+  client
+}) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
@@ -337,8 +336,7 @@ function createSomoimSection(somoim) {
 }
 
 async function createSomoimListBlock(offset, limit, campusNo) {
-  let listBlock = [
-    {
+  let listBlock = [{
       type: 'section',
       text: {
         type: 'mrkdwn',
@@ -350,7 +348,10 @@ async function createSomoimListBlock(offset, limit, campusNo) {
     },
   ];
 
-  const { count, rows: somoims } = await SomoimDB.findAndCountAll({
+  const {
+    count,
+    rows: somoims
+  } = await SomoimDB.findAndCountAll({
     where: {
       campus: campusNo,
     },
@@ -396,12 +397,11 @@ async function createSomoimListBlock(offset, limit, campusNo) {
 
   if (actionBlock.elements.length != 0) listBlock.push(actionBlock);
   if (listBlock.length <= 2) {
-    listBlock.push(
-      {
+    listBlock.push({
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: 'There is no Somoim on your campus. :sob: \n Ã£â‚¬â‚¬',
+          text: 'There is no Somoim on your campus. :sob:\n',
         },
       },
 
@@ -434,7 +434,12 @@ async function showList(command, body, context, client) {
   console.log('result', result);
 }
 
-app.action(/paginate.*/, async ({ action, body, ack, respond }) => {
+app.action(/paginate.*/, async ({
+  action,
+  body,
+  ack,
+  respond
+}) => {
   try {
     await ack();
     console.log(body);
@@ -452,7 +457,13 @@ app.action(/paginate.*/, async ({ action, body, ack, respond }) => {
   }
 });
 
-app.view('register', async ({ ack, body, view, context, client }) => {
+app.view('register', async ({
+  ack,
+  body,
+  view,
+  context,
+  client
+}) => {
   await ack();
 
   const userinfo = await app.client.users.info({
@@ -471,13 +482,13 @@ app.view('register', async ({ ack, body, view, context, client }) => {
   const url = urlFormatter(view.state.values[blockId].somoim_url.value);
 
   await SomoimDB.create({
-    campus: campusName,
-    somoim_name: somoimName,
-    represent_emoji: emoji,
-    description: desc,
-    somoim_url: url,
-    registant_name: body.user.name,
-  })
+      campus: campusName,
+      somoim_name: somoimName,
+      represent_emoji: emoji,
+      description: desc,
+      somoim_url: url,
+      registant_name: body.user.name,
+    })
     .then((somoim) => {
       console.log('data created!! id:', somoim.id);
       client.views.open({
@@ -495,26 +506,23 @@ app.view('register', async ({ ack, body, view, context, client }) => {
             text: 'Close',
             emoji: true,
           },
-          blocks: [
-            {
-              type: 'section',
-              text: {
-                type: 'mrkdwn',
-                text: '\nYou registered for a Somoim list',
-              },
+          blocks: [{
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: '\nYou registered for a Somoim list',
             },
-          ],
+          }, ],
         },
       });
 
-      blockId = view.blocks[6].block_id;
+      // blockId = view.blocks[6].block_id;
 
-      const promotionBlock = [
-        {
+      const promotionBlock = [{
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: '*New Somoim Appears!*<:party:><:party:>\n join now ',
+            text: '-',
           },
         },
         {
@@ -524,16 +532,16 @@ app.view('register', async ({ ack, body, view, context, client }) => {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: '',
+            text: '-',
           },
           accessory: {
             type: 'button',
             text: {
-              type: '',
+              type: '-',
               text: 'Join',
             },
-            url: '',
-            value: '',
+            url: 'https://naver.com',
+            value: '-',
             action_id: 'join',
           },
         },
@@ -542,15 +550,15 @@ app.view('register', async ({ ack, body, view, context, client }) => {
         },
       ];
 
-      if (view.state.values[blockId].advertise_action.selected_options) {
-        app.client.chat.postMessage({
-          token: process.env.SLACK_BOT_TOKEN,
-          channel: 'making-slackbot',
-          user: body.user.id,
-          text: `New Somoim Appears!. join now`,
-          block: promotionBlock,
-        });
-      }
+      // if (view.state.values[blockId].advertise_action.selected_options) {
+      app.client.chat.postMessage({
+        token: process.env.SLACK_BOT_TOKEN,
+        channel: 'making-slackbot',
+        user: body.user.id,
+        blocks: promotionBlock,
+        text: `New Somoim Appears!. join now`,
+      });
+      // }
     })
     .catch((err) => {
       console.log('failed to create\n', err);
@@ -569,21 +577,25 @@ app.view('register', async ({ ack, body, view, context, client }) => {
             text: 'Close',
             emoji: true,
           },
-          blocks: [
-            {
-              type: 'section',
-              text: {
-                type: 'mrkdwn',
-                text: '\nThere is a duplicate Somoim name',
-              },
+          blocks: [{
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: '\nThere is a duplicate Somoim name',
             },
-          ],
+          }, ],
         },
       });
     });
 });
 
-app.view('unregister', async ({ ack, body, view, context, client }) => {
+app.view('unregister', async ({
+  ack,
+  body,
+  view,
+  context,
+  client
+}) => {
   await ack();
 
   const result = await SomoimDB.destroy({
@@ -594,7 +606,9 @@ app.view('unregister', async ({ ack, body, view, context, client }) => {
   console.log(result);
 });
 
-app.action('join', async ({ ack }) => {
+app.action('join', async ({
+  ack
+}) => {
   await ack();
 });
 
