@@ -1,5 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 const dotenv = require('dotenv');
+const https = require('https')
+
 const {
   App
 } = require('@slack/bolt');
@@ -62,7 +64,6 @@ async function register(body, context, client) {
       token: process.env.SLACK_BOT_TOKEN,
       user: body.user_id,
     });
-
     const campusNo = await getUserCampusNo(userinfo.user.profile.email);
     const campusName = await getUserCampusName(campusNo);
 
@@ -430,8 +431,7 @@ async function showList(command, body, context, client) {
     blocks: listBlock,
     text: 'you called somoim list',
   });
-
-  console.log('result', result);
+  console.log('url', body.response_url);
 }
 
 app.action(/paginate.*/, async ({
@@ -442,14 +442,15 @@ app.action(/paginate.*/, async ({
 }) => {
   try {
     await ack();
-    console.log(body);
+    console.log(body.response_url);
     const userinfo = await app.client.users.info({
       token: process.env.SLACK_BOT_TOKEN,
       user: body.user.id,
     });
     const campusNo = await getUserCampusNo(userinfo.user.profile.email);
+
     await respond({
-      replace_original: true,
+      replace_original: "true",
       blocks: await createSomoimListBlock(parseInt(action.value), 5, campusNo),
     });
   } catch (err) {
