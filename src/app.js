@@ -593,7 +593,6 @@ app.view('unregister', async ({ ack, body, view, context, client }) => {
 });
 
 app.action('join', async ({ ack }) => {
-  console.log('HI\n');
   await ack();
 });
 
