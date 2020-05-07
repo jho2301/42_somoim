@@ -111,6 +111,13 @@ async function register(body, context, client) {
             },
           },
           {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: "<https://www.webfx.com/tools/emoji-cheat-sheet/|copy emoji from emoji cheatsheet>",
+            },
+          },
+          {
             type: "input",
             element: {
               type: "plain_text_input",
@@ -346,7 +353,7 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command("/so", async ({ command, ack, body, context, client }) => {
+app.command("/somoim", async ({ command, ack, body, context, client }) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
