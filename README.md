@@ -53,6 +53,7 @@ C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했�
 - DB_USER
 - DB_PASSWORD
 - DB_NAME
-- COMMAND
 - DB_DIALECT
+- COMMAND
 - PROMOTION_CHANNEL
+- PORT
