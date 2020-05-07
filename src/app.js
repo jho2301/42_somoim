@@ -1,15 +1,8 @@
 // eslint-disable-next-line import/no-unresolved
 const dotenv = require('dotenv');
-const {
-  App
-} = require('@slack/bolt');
-const {
-  SomoimDB
-} = require('./db');
-const {
-  getUserCampusNo,
-  getUserCampusName
-} = require('./campus_classification');
+const { App } = require('@slack/bolt');
+const { SomoimDB } = require('./db');
+const { getUserCampusNo, getUserCampusName } = require('./campus_classification');
 
 dotenv.config();
 
@@ -40,13 +33,16 @@ function urlFormatter(url) {
 }
 
 async function help(command) {
-  const helpMessage = [{
-    type: 'section',
-    text: {
-      type: 'mrkdwn',
-      text: '```\t/somoim register\t\tregister new group\n\t/somoim list\t\t\tlist groups of your campus\n\t/somoim unregister\t  delete one of your groups```',
+  const helpMessage = [
+    {
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text:
+          '```\t/somoim register\t\tregister new group\n\t/somoim list\t\t\tlist groups of your campus\n\t/somoim unregister\t  delete one of your groups```',
+      },
     },
-  }, ];
+  ];
   await app.client.chat.postEphemeral({
     token: process.env.SLACK_BOT_TOKEN,
     channel: command.channel_id,
@@ -87,7 +83,8 @@ async function register(body, context, client) {
           text: 'Cancel',
           emoji: true,
         },
-        blocks: [{
+        blocks: [
+          {
             type: 'section',
             text: {
               type: 'plain_text',
@@ -167,22 +164,26 @@ async function register(body, context, client) {
             optional: true,
             element: {
               type: 'checkboxes',
-              initial_options: [{
-                text: {
-                  type: 'plain_text',
-                  text: `Promote to #${campusName}_global_random`,
-                  emoji: true,
+              initial_options: [
+                {
+                  text: {
+                    type: 'plain_text',
+                    text: `Promote to #${campusName}_global_random`,
+                    emoji: true,
+                  },
+                  value: 'advertise_checkbox',
                 },
-                value: 'advertise_checkbox',
-              }, ],
-              options: [{
-                text: {
-                  type: 'plain_text',
-                  text: `Promote to #${campusName}_global_random`,
-                  emoji: true,
+              ],
+              options: [
+                {
+                  text: {
+                    type: 'plain_text',
+                    text: `Promote to #${campusName}_global_random`,
+                    emoji: true,
+                  },
+                  value: 'advertise_checkbox',
                 },
-                value: 'advertise_checkbox',
-              }, ],
+              ],
               action_id: 'advertise_action',
             },
             label: {
@@ -218,7 +219,8 @@ async function unregister(body, context, client) {
       text: 'Cancel',
       emoji: true,
     },
-    blocks: [{
+    blocks: [
+      {
         type: 'section',
         text: {
           type: 'mrkdwn',
@@ -268,16 +270,19 @@ async function unregister(body, context, client) {
         text: 'Close',
         emoji: true,
       },
-      blocks: [{
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: '\nThere is no Somoim to unregister :cry:',
+      blocks: [
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: '\nThere is no Somoim to unregister :cry:',
+          },
         },
-      }, ],
+      ],
     };
   }
 
+  // eslint-disable-next-line no-restricted-syntax
   for (const somoim of somoims) unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
 
   try {
@@ -292,13 +297,7 @@ async function unregister(body, context, client) {
   }
 }
 
-app.command(process.env.COMMAND || '/somoim', async ({
-  command,
-  ack,
-  body,
-  context,
-  client
-}) => {
+app.command(process.env.COMMAND || '/somoim', async ({ command, ack, body, context, client }) => {
   await ack();
   // const userinfo = await app.client.users.info({
   //   token: process.env.SLACK_BOT_TOKEN,
@@ -329,14 +328,14 @@ function createSomoimSection(somoim) {
       action_id: 'join',
     },
   };
-  section.text.text =
-    somoim.represent_emoji + ' ' + somoim.somoim_name + '\t*<@' + somoim.registant_name + '>*\n' + somoim.description;
+  section.text.text = `${somoim.represent_emoji} ${somoim.somoim_name} \t<@${somoim.registant_name}>\n${somoim.description}`;
   section.accessory.url = somoim.somoim_url;
   return section;
 }
 
 async function createSomoimListBlock(offset, limit, campusNo) {
-  let listBlock = [{
+  const listBlock = [
+    {
       type: 'section',
       text: {
         type: 'mrkdwn',
@@ -348,18 +347,15 @@ async function createSomoimListBlock(offset, limit, campusNo) {
     },
   ];
 
-  const {
-    count,
-    rows: somoims
-  } = await SomoimDB.findAndCountAll({
+  const { count, rows: somoims } = await SomoimDB.findAndCountAll({
     where: {
       campus: campusNo,
     },
-    offset: offset,
-    limit: limit,
+    offset,
+    limit,
   });
 
-  for (const somoim of somoims) {
+  for (let somoim of somoims) {
     listBlock.push(createSomoimSection(somoim));
     listBlock.push({
       type: 'divider',
@@ -395,9 +391,10 @@ async function createSomoimListBlock(offset, limit, campusNo) {
     });
   }
 
-  if (actionBlock.elements.length != 0) listBlock.push(actionBlock);
+  if (actionBlock.elements.length !== 0) listBlock.push(actionBlock);
   if (listBlock.length <= 2) {
-    listBlock.push({
+    listBlock.push(
+      {
         type: 'section',
         text: {
           type: 'mrkdwn',
@@ -413,14 +410,17 @@ async function createSomoimListBlock(offset, limit, campusNo) {
   return listBlock;
 }
 
-async function showList(command, body, context, client) {
+async function showList(command, body) {
+  console.log('\nphase1\n');
   const userinfo = await app.client.users.info({
     token: process.env.SLACK_BOT_TOKEN,
     user: body.user_id,
   });
 
+  console.log('\nphase2\n');
   const campusNo = await getUserCampusNo(userinfo.user.profile.email);
 
+  console.log('\nphase3\n');
   const listBlock = await createSomoimListBlock(0, 5, campusNo);
   console.log('list!!!:', listBlock);
   const result = await app.client.chat.postEphemeral({
@@ -431,15 +431,16 @@ async function showList(command, body, context, client) {
     text: 'you called somoim list',
   });
 
-  console.log('result', result);
+  console.log('========== show list result ==============: ', result);
 }
 
-app.action(/paginate.*/, async ({
-  action,
-  body,
-  ack,
-  respond
-}) => {
+app.action('show-list', async ({ body, ack }) => {
+  await ack();
+  // console.log('hi');
+  await showList({ user_id: body.user.id, channel_id: body.container.channel_id }, { user_id: body.user.id });
+});
+
+app.action(/paginate.*/, async ({ action, body, ack, respond }) => {
   try {
     await ack();
     console.log(body);
@@ -457,13 +458,7 @@ app.action(/paginate.*/, async ({
   }
 });
 
-app.view('register', async ({
-  ack,
-  body,
-  view,
-  context,
-  client
-}) => {
+app.view('register', async ({ ack, body, view, context, client }) => {
   await ack();
 
   const userinfo = await app.client.users.info({
@@ -482,13 +477,13 @@ app.view('register', async ({
   const url = urlFormatter(view.state.values[blockId].somoim_url.value);
 
   await SomoimDB.create({
-      campus: campusName,
-      somoim_name: somoimName,
-      represent_emoji: emoji,
-      description: desc,
-      somoim_url: url,
-      registant_name: body.user.name,
-    })
+    campus: campusName,
+    somoim_name: somoimName,
+    represent_emoji: emoji,
+    description: desc,
+    somoim_url: url,
+    registant_name: body.user.name,
+  })
     .then((somoim) => {
       console.log('data created!! id:', somoim.id);
       client.views.open({
@@ -506,23 +501,24 @@ app.view('register', async ({
             text: 'Close',
             emoji: true,
           },
-          blocks: [{
-            type: 'section',
-            text: {
-              type: 'mrkdwn',
-              text: '\nYou registered for a Somoim list',
+          blocks: [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: '\nYou registered for a Somoim list',
+              },
             },
-          }, ],
+          ],
         },
       });
 
-      // blockId = view.blocks[6].block_id;
-
-      const promotionBlock = [{
+      const promotionBlock = [
+        {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: '-',
+            text: 'New Somoim appears!',
           },
         },
         {
@@ -537,28 +533,47 @@ app.view('register', async ({
           accessory: {
             type: 'button',
             text: {
-              type: '-',
+              type: 'plain_text',
               text: 'Join',
             },
             url: 'https://naver.com',
-            value: '-',
+            value: 'none',
             action_id: 'join',
           },
         },
         {
           type: 'divider',
         },
+        {
+          type: 'actions',
+          elements: [
+            {
+              type: 'button',
+              action_id: 'show-list',
+              text: {
+                type: 'plain_text',
+                text: 'show other somoims',
+                emoji: true,
+              },
+              value: 'click_me_123',
+            },
+          ],
+        },
       ];
 
-      // if (view.state.values[blockId].advertise_action.selected_options) {
-      app.client.chat.postMessage({
-        token: process.env.SLACK_BOT_TOKEN,
-        channel: 'making-slackbot',
-        user: body.user.id,
-        blocks: promotionBlock,
-        text: `New Somoim Appears!. join now`,
-      });
-      // }
+      promotionBlock[2].text.text = `${emoji} *${somoimName}* <@${body.user.name}>\n ${desc}`;
+      promotionBlock[2].accessory.url = url;
+
+      blockId = view.blocks[6].block_id;
+      if (view.state.values[blockId].advertise_action.selected_options) {
+        app.client.chat.postMessage({
+          token: process.env.SLACK_BOT_TOKEN,
+          channel: 'making-slackbot',
+          user: body.user.id,
+          blocks: promotionBlock,
+          text: `New Somoim Appears!. join now`,
+        });
+      }
     })
     .catch((err) => {
       console.log('failed to create\n', err);
@@ -577,25 +592,21 @@ app.view('register', async ({
             text: 'Close',
             emoji: true,
           },
-          blocks: [{
-            type: 'section',
-            text: {
-              type: 'mrkdwn',
-              text: '\nThere is a duplicate Somoim name',
+          blocks: [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: '\nThere is a duplicate Somoim name',
+              },
             },
-          }, ],
+          ],
         },
       });
     });
 });
 
-app.view('unregister', async ({
-  ack,
-  body,
-  view,
-  context,
-  client
-}) => {
+app.view('unregister', async ({ ack, body, view, context, client }) => {
   await ack();
 
   const result = await SomoimDB.destroy({
@@ -606,9 +617,7 @@ app.view('unregister', async ({
   console.log(result);
 });
 
-app.action('join', async ({
-  ack
-}) => {
+app.action('join', async ({ ack }) => {
   await ack();
 });
 
