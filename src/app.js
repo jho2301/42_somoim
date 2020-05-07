@@ -1,314 +1,11 @@
-// eslint-disable-next-line import/no-unresolved
 const dotenv = require('dotenv');
-const { App } = require('@slack/bolt');
-const { SomoimDB } = require('./db');
-const { getUserCampusNo, getUserCampusName } = require('./campus_classification');
+const { app } = require('./init');
+const { unregister } = require('./skills/unregister');
+const { register } = require('./skills/register');
+const { help } = require('./skills/help');
+const { SomoimDB, getUserCampusNo } = require('./model');
 
 dotenv.config();
-
-const app = new App({
-  token: process.env.SLACK_BOT_TOKEN,
-  signingSecret: process.env.SLACK_SIGNING_SECRET,
-});
-
-function createSomoimOption(somoim) {
-  const option = {
-    text: {
-      type: 'plain_text',
-      text: '',
-    },
-    value: '',
-  };
-  option.text.text = somoim.somoim_name;
-  option.value = `${somoim.id}`;
-  return option;
-}
-
-function urlFormatter(url) {
-  let urlTemp = url.split('https://');
-  if (urlTemp.length !== 1) return url;
-  urlTemp = url.split('http://');
-  if (urlTemp.length !== 1) return url;
-  return `https://${url}`;
-}
-
-async function help(command) {
-  const helpMessage = [
-    {
-      type: 'section',
-      text: {
-        type: 'mrkdwn',
-        text:
-          '```\t/somoim register\t\tregister new group\n\t/somoim list\t\t\tlist groups of your campus\n\t/somoim unregister\t  delete one of your groups```',
-      },
-    },
-  ];
-  await app.client.chat.postEphemeral({
-    token: process.env.SLACK_BOT_TOKEN,
-    channel: command.channel_id,
-    user: command.user_id,
-    blocks: helpMessage,
-    text: 'you called help',
-  });
-}
-
-async function register(body, context, client) {
-  try {
-    const userinfo = await app.client.users.info({
-      token: process.env.SLACK_BOT_TOKEN,
-      user: body.user_id,
-    });
-
-    const campusNo = await getUserCampusNo(userinfo.user.profile.email);
-    const campusName = await getUserCampusName(campusNo);
-
-    await client.views.open({
-      token: context.botToken,
-      trigger_id: body.trigger_id,
-      view: {
-        type: 'modal',
-        callback_id: 'register',
-        title: {
-          type: 'plain_text',
-          text: 'Somoim Registration',
-          emoji: true,
-        },
-        submit: {
-          type: 'plain_text',
-          text: 'Submit',
-          emoji: true,
-        },
-        close: {
-          type: 'plain_text',
-          text: 'Cancel',
-          emoji: true,
-        },
-        blocks: [
-          {
-            type: 'section',
-            text: {
-              type: 'plain_text',
-              text: ':wave: Hello! Please register your Somoim',
-              emoji: true,
-            },
-          },
-          {
-            type: 'divider',
-          },
-          {
-            type: 'input',
-            label: {
-              type: 'plain_text',
-              text: "What's the name of your Somoim?",
-              emoji: true,
-            },
-            element: {
-              type: 'plain_text_input',
-              action_id: 'somoim_name',
-              placeholder: {
-                type: 'plain_text',
-                text: 'Name of your Somoim',
-              },
-            },
-          },
-          {
-            type: 'input',
-            element: {
-              type: 'plain_text_input',
-              action_id: 'represent_emoji',
-              placeholder: {
-                type: 'plain_text',
-                text: 'e.g.) :soccer:',
-              },
-            },
-            label: {
-              type: 'plain_text',
-              text: 'Emoji representing your Somoim',
-              emoji: true,
-            },
-          },
-          {
-            type: 'input',
-            element: {
-              type: 'plain_text_input',
-              action_id: 'description',
-              placeholder: {
-                type: 'plain_text',
-                text: 'My Somoim is about...',
-              },
-            },
-            label: {
-              type: 'plain_text',
-              text: 'Brief introduction',
-              emoji: true,
-            },
-          },
-          {
-            type: 'input',
-            element: {
-              type: 'plain_text_input',
-              action_id: 'somoim_url',
-              placeholder: {
-                type: 'plain_text',
-                text: 'Discord Server, KaKao Talk Open Chat, Slack Workspace, etc...',
-              },
-            },
-            label: {
-              type: 'plain_text',
-              text: 'Somoim URL',
-              emoji: true,
-            },
-          },
-          {
-            type: 'input',
-            optional: true,
-            element: {
-              type: 'checkboxes',
-              initial_options: [
-                {
-                  text: {
-                    type: 'plain_text',
-                    text: `Promote to #${campusName}_global_random`,
-                    emoji: true,
-                  },
-                  value: 'advertise_checkbox',
-                },
-              ],
-              options: [
-                {
-                  text: {
-                    type: 'plain_text',
-                    text: `Promote to #${campusName}_global_random`,
-                    emoji: true,
-                  },
-                  value: 'advertise_checkbox',
-                },
-              ],
-              action_id: 'advertise_action',
-            },
-            label: {
-              type: 'plain_text',
-              text: 'Promotion',
-              emoji: true,
-            },
-          },
-        ],
-      },
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-async function unregister(body, context, client) {
-  let unregisterBlock = {
-    type: 'modal',
-    callback_id: 'unregister',
-    title: {
-      type: 'plain_text',
-      text: 'Somoim Unregisteration',
-      emoji: true,
-    },
-    submit: {
-      type: 'plain_text',
-      text: 'Submit',
-      emoji: true,
-    },
-    close: {
-      type: 'plain_text',
-      text: 'Cancel',
-      emoji: true,
-    },
-    blocks: [
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: ' ',
-        },
-      },
-      {
-        type: 'divider',
-      },
-      {
-        type: 'input',
-        block_id: 'unregister_list',
-        label: {
-          type: 'plain_text',
-          text: 'Select a Somoim to unregister',
-        },
-        element: {
-          type: 'static_select',
-          action_id: 'chosen_one',
-          placeholder: {
-            type: 'plain_text',
-            text: 'Select a Somoim',
-            emoji: true,
-          },
-          options: [],
-        },
-      },
-    ],
-  };
-
-  const somoims = await SomoimDB.findAll({
-    where: {
-      registant_name: body.user_name,
-    },
-  });
-
-  if (!somoims.length) {
-    unregisterBlock = {
-      type: 'modal',
-      title: {
-        type: 'plain_text',
-        text: 'Somoim Unregistration',
-        emoji: true,
-      },
-      close: {
-        type: 'plain_text',
-        text: 'Close',
-        emoji: true,
-      },
-      blocks: [
-        {
-          type: 'section',
-          text: {
-            type: 'mrkdwn',
-            text: '\nThere is no Somoim to unregister :cry:',
-          },
-        },
-      ],
-    };
-  }
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const somoim of somoims) unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
-
-  try {
-    const result = await client.views.open({
-      token: context.botToken,
-      trigger_id: body.trigger_id,
-      view: unregisterBlock,
-    });
-    console.log(result);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-app.command(process.env.COMMAND || '/somoim', async ({ command, ack, body, context, client }) => {
-  await ack();
-  // const userinfo = await app.client.users.info({
-  //   token: process.env.SLACK_BOT_TOKEN,
-  //   user: command.user_id,
-  // });
-
-  if (`${command.text}` === 'register') await register(body, context, client);
-  else if (`${command.text}` === 'list') await showList(command, body, context, client);
-  else if (`${command.text}` === 'unregister') await unregister(body, context, client);
-  else await help(command);
-});
 
 function createSomoimSection(somoim) {
   const section = {
@@ -332,6 +29,27 @@ function createSomoimSection(somoim) {
   section.accessory.url = somoim.somoim_url;
   return section;
 }
+
+function urlFormatter(url) {
+  let urlTemp = url.split('https://');
+  if (urlTemp.length !== 1) return url;
+  urlTemp = url.split('http://');
+  if (urlTemp.length !== 1) return url;
+  return `https://${url}`;
+}
+
+app.command(process.env.COMMAND || '/somoim', async ({ command, ack, body, context, client }) => {
+  await ack();
+  // const userinfo = await app.client.users.info({
+  //   token: process.env.SLACK_BOT_TOKEN,
+  //   user: command.user_id,
+  // });
+
+  if (`${command.text}` === 'register') await register(body, context, client);
+  else if (`${command.text}` === 'list') await showList(command, body, context, client);
+  else if (`${command.text}` === 'unregister') await unregister(body, context, client);
+  else await help(command);
+});
 
 async function createSomoimListBlock(offset, limit, campusNo) {
   const listBlock = [
@@ -604,17 +322,6 @@ app.view('register', async ({ ack, body, view, context, client }) => {
         },
       });
     });
-});
-
-app.view('unregister', async ({ ack, body, view, context, client }) => {
-  await ack();
-
-  const result = await SomoimDB.destroy({
-    where: {
-      id: view.state.values.unregister_list.chosen_one.selected_option.value,
-    },
-  });
-  console.log(result);
 });
 
 app.action('join', async ({ ack }) => {
