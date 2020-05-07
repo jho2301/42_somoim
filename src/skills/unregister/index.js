@@ -14,7 +14,7 @@ function createSomoimOption(somoim) {
   return option;
 }
 
-async function unregister(body, context, client) {
+async function showUnregisterModal(body, context, client) {
   let unregisterBlock = {
     type: 'modal',
     callback_id: 'unregister',
@@ -100,26 +100,27 @@ async function unregister(body, context, client) {
   for (const somoim of somoims) unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
 
   try {
-    const result = await client.views.open({
+    await client.views.open({
       token: context.botToken,
       trigger_id: body.trigger_id,
       view: unregisterBlock,
     });
-    console.log(result);
   } catch (error) {
     console.error(error);
   }
 }
 
-app.view('unregister', async ({ ack, body, view, context, client }) => {
-  await ack();
-
-  const result = await SomoimDB.destroy({
+async function unregister(view) {
+  SomoimDB.destroy({
     where: {
       id: view.state.values.unregister_list.chosen_one.selected_option.value,
     },
   });
-  console.log(result);
+}
+
+app.view('unregister', async ({ ack, view }) => {
+  await ack();
+  await unregister(view);
 });
 
-exports.unregister = unregister;
+exports.showUnregisterModal = showUnregisterModal;
