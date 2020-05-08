@@ -8,7 +8,3 @@ app.command(process.env.COMMAND || '/somoim', async ({ command, ack, body, conte
   else if (`${command.text}` === 'unregister') await showUnregisterModal(body, context, client);
   else showHelpMessage(command);
 });
-
-(async () => {
-  await app.start(process.env.PORT || 3000);
-})();

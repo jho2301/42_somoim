@@ -6,4 +6,8 @@ const app: App = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
 });
 
+(async () => {
+  await app.start(process.env.PORT || 3000);
+})();
+
 export default app;
