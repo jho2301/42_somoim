@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Sequelize, Model, INTEGER, STRING } from 'sequelize';
+import { Sequelize, Model, INTEGER, STRING, Dialect } from 'sequelize';
 
 const sequelize = new Sequelize(
   process.env.DB_NAME || 'somoim_db',
@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD || '',
   {
     host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql',
+    dialect: <Dialect>(process.env.DB_DIALECT || 'mysql'),
     dialectOptions: {
       charset: 'utf8mb4',
     },
