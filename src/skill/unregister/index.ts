@@ -1,21 +1,10 @@
-import { SomoimDB } from '../../model';
+import { InputBlock, StaticSelect } from '@slack/types';
+import { Somoim } from '../../model';
 import app from '../../app';
-
-function createSomoimOption(somoim) {
-  const option = {
-    text: {
-      type: 'plain_text',
-      text: '',
-    },
-    value: '',
-  };
-  option.text.text = somoim.somoim_name;
-  option.value = `${somoim.id}`;
-  return option;
-}
+import { createSomoimOption, unregisterBlocks } from './blocks';
 
 async function showUnregisterModal(body, context, client) {
-  let unregisterBlock = {
+  let unregisterModal = {
     type: 'modal',
     callback_id: 'unregister',
     title: {
@@ -33,46 +22,17 @@ async function showUnregisterModal(body, context, client) {
       text: 'Cancel',
       emoji: true,
     },
-    blocks: [
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: ' ',
-        },
-      },
-      {
-        type: 'divider',
-      },
-      {
-        type: 'input',
-        block_id: 'unregister_list',
-        label: {
-          type: 'plain_text',
-          text: 'Select a Somoim to unregister',
-        },
-        element: {
-          type: 'static_select',
-          action_id: 'chosen_one',
-          placeholder: {
-            type: 'plain_text',
-            text: 'Select a Somoim',
-            emoji: true,
-          },
-          options: [],
-        },
-      },
-    ],
+    blocks: unregisterBlocks,
   };
 
-  const somoims = await SomoimDB.findAll({
+  const somoims = await Somoim.findAll({
     where: {
       registant_name: body.user_name,
     },
   });
 
   if (!somoims.length) {
-    unregisterBlock = {
+    unregisterModal = {
       type: 'modal',
       title: {
         type: 'plain_text',
@@ -100,16 +60,16 @@ async function showUnregisterModal(body, context, client) {
         emoji: false,
       },
     };
+  } else {
+    for (let i = 0; i < somoims.length; i += 1)
+      ((unregisterModal.blocks[2] as InputBlock).element as StaticSelect).options.push(createSomoimOption(somoims[i]));
   }
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const somoim of somoims) unregisterBlock.blocks[2].element.options.push(createSomoimOption(somoim));
 
   try {
     await client.views.open({
       token: context.botToken,
       trigger_id: body.trigger_id,
-      view: unregisterBlock,
+      view: unregisterModal,
     });
   } catch (error) {
     console.error(error);
@@ -117,7 +77,7 @@ async function showUnregisterModal(body, context, client) {
 }
 
 async function unregister(view) {
-  SomoimDB.destroy({
+  Somoim.destroy({
     where: {
       id: view.state.values.unregister_list.chosen_one.selected_option.value,
     },

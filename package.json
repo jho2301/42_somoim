@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "@slack/bolt": "^2.0.1",
+    "@slack/types": "^1.6.0",
     "@slack/web-api": "^5.8.1",
     "@types/bluebird": "^3.5.30",
     "@types/dotenv": "^8.2.0",

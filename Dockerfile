@@ -5,4 +5,4 @@ COPY . /somoim
 EXPOSE 3000
 WORKDIR /somoim
 
-CMD ["pm2-runtime", "app.js"]
+CMD ["pm2-runtime", "index.ts"]
