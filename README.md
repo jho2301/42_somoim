@@ -1,6 +1,6 @@
 # 42SOMOIM <!-- badge needed : build passing, version, -->
 
-<!-- gif -->https://cultofthepartyparrot.com/parrots/hd/transparront.gif
+<!-- gif -->
 
 ## 🚩 table of contents
 
@@ -69,7 +69,8 @@
   - `javascript` -> `typescript`
 - Development Tool
   - `Node.js`, `Bolt`, `slack/web-api`, `sequelize`
-- Distribution Tool - `AWS RDS`, `AWS EC2`, `Docker`
+- Distribution Tool 
+  - `AWS RDS`, `AWS EC2`, `Docker`
 - Cooperation Tool
   - `github(with gitflow)`, `eslint (code convetion: airbnb)`, `prettier`, `Jira`, `slack`, `hangout`, `vscode liveshare`
 - Development Method
