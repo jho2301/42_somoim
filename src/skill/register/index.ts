@@ -1,6 +1,7 @@
 import { Button, MrkdwnElement, SectionBlock, KnownBlock } from '@slack/types';
+import { UniqueConstraintError, ValidationError } from 'sequelize';
 import { Somoim } from '../../model';
-import { urlFormatter, getUserCampusNo } from '../../util';
+import { urlFormatter, getUserCampusNo, getUserCampusName } from '../../util';
 import * as blocks from './blocks';
 import app from '../../app';
 
@@ -8,11 +9,13 @@ function promoteToRandomChannel(body, { emoji, somoimName, desc, url }): void {
   const { promotionBlocks } = blocks;
   ((promotionBlocks[2] as SectionBlock)
     .text as MrkdwnElement).text = `${emoji} *${somoimName}* <@${body.user.name}>\n ${desc}`;
-  ((promotionBlocks[2] as SectionBlock).accessory as Button).url = url;
+	((promotionBlocks[2] as SectionBlock).accessory as Button).url = url;
+	let campusName: string;
+  getUserCampusNo(body.user.id).then(campusNo => getUserCampusName(campusNo).then(cName => campusName = cName));
 
   app.client.chat.postMessage({
     token: process.env.SLACK_BOT_TOKEN,
-    channel: process.env.PROMOTION_CHANNEL || 'random',
+    channel: process.env.IS_42BORN2CODE ? `${campusName}_global_random` : 'random',
     user: body.user.id,
     blocks: promotionBlocks,
     text: `New Somoim Appears!. join now`,
@@ -103,7 +106,15 @@ async function register(body, view, context, client): Promise<void> {
         promoteToRandomChannel(body, { emoji, somoimName, desc, url });
     })
     .catch((err) => {
-      console.error(err);
+			let errMsg: string;
+      if (err instanceof ValidationError) {
+        errMsg = err.errors[0].message;
+      } else if (err instanceof UniqueConstraintError) {
+        errMsg = 'There is a duplicate Somoim name';
+      } else {
+        errMsg = "Unexpected Error!";
+      }
+      
       client.views.open({
         token: context.botToken,
         trigger_id: body.trigger_id,
@@ -124,7 +135,7 @@ async function register(body, view, context, client): Promise<void> {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: '\nThere is a duplicate Somoim name',
+                text: `\n ${errMsg}`,
               },
             },
           ],
