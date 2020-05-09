@@ -53,7 +53,7 @@
 
 **Crew** Hyekim
 
-<img src="https://ca.slack-edge.com/T039P7U66-UU8UDR1RU-2e2f38959a43-512" alt="drawing" width="40"/> 
+<img src="https://cultofthepartyparrot.com/parrots/hd/dealwithitnowparrot.gif" alt="drawing" width="40"/> 
  
   **Crew** Dohkim
 
