@@ -1,6 +1,6 @@
 # 42SOMOIM <!-- badge needed : build passing, version, -->
 
-<!-- gif -->
+<!-- gif -->https://cultofthepartyparrot.com/parrots/hd/transparront.gif
 
 ## 🚩 table of contents
 
@@ -47,15 +47,15 @@
 
 <img src="https://cultofthepartyparrot.com/parrots/hd/confusedparrot.gif" alt="drawing" width="40"/>
 
-**Captain** Hjeon
+**Captain** [Hjeon](https://github.com/jho2301)
 
 <img src="https://cultofthepartyparrot.com/parrots/hd/sleepingparrot.gif" alt="drawing" width="40"/>
 
-**Crew** Hyekim
+**Crew** [Hyekim](https://github.com/DiceMono)
 
 <img src="https://cultofthepartyparrot.com/parrots/hd/dealwithitnowparrot.gif" alt="drawing" width="40"/> 
  
-  **Crew** Dohkim
+  **Crew** [Dohkim](https://github.com/DooooH)
 
 ## For contributors
 
