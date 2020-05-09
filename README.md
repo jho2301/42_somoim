@@ -49,7 +49,7 @@
 
 **Captain** Hjeon
 
-<img src="https://cultofthepartyparrot.com/parrots/hd/sleepyparrot.gif" alt="drawing" width="40"/>
+<img src="https://cultofthepartyparrot.com/parrots/hd/sleepingparrot.gif" alt="drawing" width="40"/>
 
 **Crew** Hyekim
 
