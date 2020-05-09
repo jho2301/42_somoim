@@ -1,59 +1,106 @@
-# C피신 소규모 채널 부흥 운동
+# 42SOMOIM <!-- badge needed : build passing, version, -->
 
-    팀명: 미안하다. 이거 보여주려고 어그로 끌었다.
-    프로젝트명: 42 소모임 슬랙봇
+<!-- gif -->
 
-## 프로젝트 개요
+## 🚩 table of contents
+- Why we made 42Somoim?
+- Description
+- How To Use
+- TRY IT OUT!  <!-- workspace url ours, cuckcu -->
+- We are..
+- for contributors <!-- -  badge to wiki -->
+- Credits
+- support
+  <!-- buymeacoffe / beapatreon -->
 
-42내 자유로운 소규모 모임 활성화를 도와주는 슬랙봇
+## Why we made 42Somoim?
+```42서울 선발과정 당시 참가자들이 모인 슬랙채널에는 소규모 채널들이 다양하게 존재했습니다. 채널들은 저마다의 특별한 관심사들을 담고 피씨너들을 이어주는 역할을 하고 있었는데요. 하지만 본과정 채널로 옮기는 과정에서 채널들은 사라질 수 밖에 없었습니다. 그것을 지켜보면서 아쉬웠던 저희 팀은 그 문화를 다시 살려볼 수 없을까 궁리 했습니다.```
 
-C피신 당시 슬랙채널에는 소규모 채널들이 다양하게 존재했습니다. 채널들은 저마다의 특별한 관심사들을 담고 피씨너들을 이어주는 역할을 하고 있었는데요. 하지만 본과정 채널로 옮기면서 사라질 수 밖에 없었습니다. 그것을 지켜보면서 아쉬웠던 저희 팀은 그 문화를 다시 살려볼 수 없을까 궁리 했습니다.
-그래서 채널 생성에 제한이 되는 슬랙 대신 자유롭게 생성가능한 카카오톡 오픈 채팅방이나 디스코드 서버 등을 새 거처로 만들고 이 링크를 공식 채널 내 봇을 통해 유통하는 방식을 구상하게 되었습니다.
+## Description
+> *42내 자유로운 소규모 모임 활성화를 도와주는 슬랙 앱*  
 
-## 프로젝트 상세
+모든 42인들이 속해있는 42born2code 워크스페이스에서 사용할 수 있도록 의도하여 제작했습니다.
 
-본 프로젝트는 42 본과정을 진행 중인 모든 42인들이 속해있는 42born2code 슬랙 워크스페이스 내부에서 사용할 수 있는 슬랙 봇의 개발을 목표로 합니다.
-이 슬랙 봇을 통해 운영자는 소모임에 대한 간단한 설명, 오픈 카톡방 또는 디스코드 링크를 등록할 수 있고, 참가자는 소모임 리스트를 조회 할 수 있습니다.
+42Somoim을 통해 운영자는 캠퍼스별로 소모임에 대한 간단한 설명, 오픈 카톡방 또는 디스코드 링크 등을 등록할 수 있고, 참가자는 소모임 리스트를 조회하여 참가할 수 있습니다.
 
-## 기대성과
+## How To Use
 
-1. 42인들 간의 유대감 형성에 기여를 할 수 있을 것 입니다.
-2. c피신 당시 유쾌하고 가볍게 만들 수 있었던 소모임 문화를 다시 살릴 수 있을 것 입니다.
-3. 일상적으로 이용하는 슬랙 기반의 소모임 관리로 접근성을 높일 수 있을 것입니다.
+- 소모임을 시작하고 싶다면..
+  - /somoim register
+    
+- 소모임에 참여하고 싶다면..
+  - /somoim list
+
+- 소모임 해쳐!
+  - /somoim unregister
+
+## TRY IT OUT!
+
+- [42Somoim workspace](www.naver.com)
+- [Cuckoo workspace](www.naver.com)
 
 ## We are..
+<img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="drawing" width="40"/>
 
-- hjeon
+  **Captain** Hjeon
 
-  - 역할: 팀장
-  - 핵심기여역량: 프로젝트 기획 / 관리, 소스 개발, 관련 기술 리서치
+![hammond](https://avatars1.githubusercontent.com/u/46372339?s=40&u=a53742cf3f7882978aad4594a5cb650943462aef&v=4)
 
-- dohkim
+  **Crew** Hyekim 
 
-  - 역할: 팀원
-  - 핵심기여역량: 프로젝트 기획, 소스 개발, 관련 기술 리서치
+<img src="https://ca.slack-edge.com/T039P7U66-UU8UDR1RU-2e2f38959a43-512" alt="drawing" width="40"/> 
+ 
+  **Crew** Dohkim
 
-- yjeon
-  - 여건상 미 참여
-  
-- hyekim
-  - 역할: 팀원
-  - 핵심기여역량: 프로젝트 기획, 소스 개발, 관련 기술 리서치
+## For contributors
+	Got something interesting you'd like to share? Learn about contributing.
 
-## 개발 환경
+## Credits
+- Language
+  - `javascript` -> `typescript`
+-	Development Tool 
+    - `Node.js`, `Bolt`, `slack/web-api`, `sequelize`
+- Distribution Tool
+	- `AWS RDS`, `AWS EC2`, `Docker`
+- Cooperation Tool
+  - `github(with gitflow)`, `eslint (code convetion: airbnb)`, `prettier`, `Jira`, `slack`, `hangout`, `vscode liveshare`
+- Development Method
+  - `Pair Programming`, `Functional Division Development`
 
-- 개발 도구: Node.js, AWS, Bolt, MySQL
-- 협업 도구: github(with gitflow), Jira, slack, hangout, discord, vscode liveshare
-- 개발 방식: 페어 프로그래밍, 기능별 분담 개발
 
-## Environment Variables
+# Contribution Guidelines
 
+## Developing
+
+0. Before you start, RTM if you're not ready [Bolt](https://slack.dev/bolt-js/concepts) [SlackAPI](https://api.slack.com/)
+
+1. install package
+>```zsh
+> $ git clone https://github.com/jho2301/42_Somoim.git
+> $ cd 42_Somoim
+> $ npm install
+> $ npm install -g ts-node
+>```
+2. set environment varaibles(you can use [dotenv](https://www.npmjs.com/package/dotenv))
 - SLACK_SIGNING_SECRET
+  - Signing secret from the slack app you created in step 0.
 - SLACK_BOT_TOKEN
+  - Bot token from the slack app you created in step 0.
+- COMMAND
+  - you can specify slack command of your app
+- DB_DIALECT
+  - setting database dialect ex)'postgres'
 - DB_USER
 - DB_PASSWORD
 - DB_NAME
-- DB_DIALECT
-- COMMAND
-- PROMOTION_CHANNEL
+- DB_HOST
 - PORT
+
+3. run server
+```shell
+$ ts-node src/index.ts
+```
+
+## contributing
+1. issue
+2. pull request

@@ -50,7 +50,7 @@ export const promotionBlocks: Array<KnownBlock> = [
 ];
 
 export async function getRegisterBlocks(body): Promise<Array<KnownBlock>> {
-  const campusName = await getUserCampusName(await getUserCampusNo(body));
+  const campusName = await getUserCampusName(await getUserCampusNo(body.user.id));
   const registerBlocks: Array<KnownBlock> = [
     <SectionBlock>{
       type: 'section',
@@ -143,7 +143,7 @@ export async function getRegisterBlocks(body): Promise<Array<KnownBlock>> {
           {
             text: {
               type: 'plain_text',
-              text: `Promote to #${campusName}_global_random`,
+              text: process.env.IS_42BORN2CODE ? `Promote to #${campusName}_global_random` : `Promote to #random`,
               emoji: true,
             },
             value: 'advertise_checkbox',
@@ -152,8 +152,8 @@ export async function getRegisterBlocks(body): Promise<Array<KnownBlock>> {
         options: [
           {
             text: {
-              type: 'plain_text',
-              text: `Promote to #${campusName}_global_random`,
+							type: 'plain_text',
+              text: process.env.PROMOTION_CHANNEL ? `Promote to #${campusName}_global_random` : `Promote to #random`,
               emoji: true,
             },
             value: 'advertise_checkbox',

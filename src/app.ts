@@ -8,6 +8,7 @@ const app: App = new App({
 
 (async () => {
   await app.start(process.env.PORT || 3000);
+  console.log('app is running');
 })();
 
 export default app;

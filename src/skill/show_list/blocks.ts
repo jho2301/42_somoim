@@ -44,7 +44,8 @@ export async function createSomoimListBlock(offset: number, limit: number, campu
       campus: campusNo,
     },
     offset,
-    limit,
+		limit,
+		order:  ['id', 'DESC'],
   });
 
   for (let i = 0; i < somoims.length; i += 1) {

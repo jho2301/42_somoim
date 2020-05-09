@@ -5,4 +5,4 @@ COPY . /somoim
 EXPOSE 3000
 WORKDIR /somoim
 
-CMD ["pm2-runtime", "app.ts"]
+CMD ["npx","pm2-runtime", "app.ts"]
