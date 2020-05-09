@@ -45,7 +45,7 @@
 
 ## We are..
 
-<img src="https://cultofthepartyparrot.com/parrots/hd/transparront.gif" alt="drawing" width="40"/>
+<img src="https://cultofthepartyparrot.com/parrots/hd/confusedparrot.gif" alt="drawing" width="40"/>
 
 **Captain** Hjeon
 
