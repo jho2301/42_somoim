@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { SectionBlock, Button, MrkdwnElement, KnownBlock, ActionsBlock } from '@slack/types';
 import { Somoim } from '../../model';
-import { literal } from 'sequelize'
+import { literal } from 'sequelize';
 
 function createSomoimSection(somoim: Somoim): SectionBlock {
   const section: SectionBlock = {
@@ -46,9 +46,7 @@ export async function createSomoimListBlock(offset: number, limit: number, campu
     },
     offset,
     limit,
-    order: [
-      ['created_at', 'DESC']
-    ]
+    order: [['created_at', 'DESC']],
   });
 
   for (let i = 0; i < somoims.length; i += 1) {

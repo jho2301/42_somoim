@@ -1,9 +1,10 @@
 import { InputBlock, StaticSelect } from '@slack/types';
 import { Somoim } from '../../model';
 import app from '../../app';
-import { createSomoimOption, unregisterBlocks } from './blocks';
+import * as blocks from './blocks';
 
 async function showUnregisterModal(body, context, client) {
+  let unregisterBlocks = blocks.createUnregisterBlocks();
   let unregisterModal: any = {
     type: 'modal',
     callback_id: 'unregister',
@@ -57,7 +58,9 @@ async function showUnregisterModal(body, context, client) {
     };
   } else {
     for (let i = 0; i < somoims.length; i += 1)
-      ((unregisterModal.blocks[2] as InputBlock).element as StaticSelect).options.push(createSomoimOption(somoims[i]));
+      ((unregisterModal.blocks[2] as InputBlock).element as StaticSelect).options.push(
+        blocks.createSomoimOption(somoims[i])
+      );
   }
 
   try {

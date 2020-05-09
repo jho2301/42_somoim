@@ -152,7 +152,7 @@ export async function getRegisterBlocks(body): Promise<Array<KnownBlock>> {
         options: [
           {
             text: {
-							type: 'plain_text',
+              type: 'plain_text',
               text: process.env.PROMOTION_CHANNEL ? `Promote to #${campusName}_global_random` : `Promote to #random`,
               emoji: true,
             },

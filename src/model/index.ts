@@ -38,7 +38,7 @@ Somoim.init(
   {
     campus: {
       type: INTEGER,
-			allowNull: false,
+      allowNull: false,
     },
     somoim_name: {
       type: STRING,
@@ -52,12 +52,12 @@ Somoim.init(
       type: STRING,
       validate: {
         isKorean(value: string) {
-            if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(value)){
-              throw new Error('Korean Cannot Be Used in URL');
-            }
+          if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(value)) {
+            throw new Error('Korean Cannot Be Used in URL');
           }
-        }
-		},
+        },
+      },
+    },
     registant_name: {
       type: STRING,
       allowNull: false,

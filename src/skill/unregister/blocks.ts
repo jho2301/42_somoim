@@ -15,33 +15,36 @@ export function createSomoimOption(somoim: Somoim): any {
   return option;
 }
 
-export const unregisterBlocks: KnownBlock[] = [
-  <SectionBlock>{
-    type: 'section',
-    text: {
-      type: 'mrkdwn',
-      text: ' ',
-    },
-  },
-  <DividerBlock>{
-    type: 'divider',
-  },
-  <InputBlock>{
-    type: 'input',
-    block_id: 'unregister_list',
-    label: {
-      type: 'plain_text',
-      text: 'Select a Somoim to unregister',
-    },
-    element: {
-      type: 'static_select',
-      action_id: 'chosen_one',
-      placeholder: {
-        type: 'plain_text',
-        text: 'Select a Somoim',
-        emoji: true,
+export function createUnregisterBlocks(): KnownBlock[] {
+  const unregisterBlocks: KnownBlock[] = [
+    <SectionBlock>{
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: ' ',
       },
-      options: [],
     },
-  },
-];
+    <DividerBlock>{
+      type: 'divider',
+    },
+    <InputBlock>{
+      type: 'input',
+      block_id: 'unregister_list',
+      label: {
+        type: 'plain_text',
+        text: 'Select a Somoim to unregister',
+      },
+      element: {
+        type: 'static_select',
+        action_id: 'chosen_one',
+        placeholder: {
+          type: 'plain_text',
+          text: 'Select a Somoim',
+          emoji: true,
+        },
+        options: [],
+      },
+    },
+  ];
+  return unregisterBlocks;
+}
