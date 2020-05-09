@@ -49,7 +49,7 @@
 
 **Captain** Hjeon
 
-![hammond](https://avatars1.githubusercontent.com/u/46372339?s=40&u=a53742cf3f7882978aad4594a5cb650943462aef&v=4)
+<img src="https://cultofthepartyparrot.com/parrots/hd/sleepyparrot.gif" alt="drawing" width="40"/>
 
 **Crew** Hyekim
 
