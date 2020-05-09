@@ -42,7 +42,7 @@
 
 - [42Somoim workspace](https://join.slack.com/t/42somoim/shared_invite/zt-eamqts9g-y49qks3JXI6BisqtSZrq0w)
 - Cuckoo workspace - 42 프로그램 전용 채널
-
+- 42Born2Code - 앱 올리고 싶습니다.
 ## We are..
 
 <img src="https://cultofthepartyparrot.com/parrots/hd/confusedparrot.gif" alt="drawing" width="40"/>
