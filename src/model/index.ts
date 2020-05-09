@@ -38,7 +38,7 @@ Somoim.init(
   {
     campus: {
       type: INTEGER,
-      allowNull: false,
+			allowNull: false,
     },
     somoim_name: {
       type: STRING,
@@ -50,7 +50,14 @@ Somoim.init(
     },
     somoim_url: {
       type: STRING,
-    },
+      validate: {
+        isKorean(value: string) {
+            if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(value)){
+              throw new Error('Korean Cannot Be Used in URL');
+            }
+          }
+        }
+		},
     registant_name: {
       type: STRING,
       allowNull: false,
@@ -66,10 +73,10 @@ Somoim.init(
   }
 );
 
-Somoim.sync();
+Somoim.sync({force: true});
 
 enum Campus {
-  MAROC1337 = 1,
+  MAROC1337,
   BELGIQUE19,
   RUSSIE21,
   LYON,
