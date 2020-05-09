@@ -50,7 +50,7 @@ export const promotionBlocks: Array<KnownBlock> = [
 ];
 
 export async function getRegisterBlocks(body): Promise<Array<KnownBlock>> {
-  const campusName = await getUserCampusName(await getUserCampusNo(body.user.id));
+  const campusName = await getUserCampusName(await getUserCampusNo(body.user_id));
   const registerBlocks: Array<KnownBlock> = [
     <SectionBlock>{
       type: 'section',

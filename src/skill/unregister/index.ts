@@ -4,7 +4,7 @@ import app from '../../app';
 import { createSomoimOption, unregisterBlocks } from './blocks';
 
 async function showUnregisterModal(body, context, client) {
-  let unregisterModal = {
+  let unregisterModal: any = {
     type: 'modal',
     callback_id: 'unregister',
     title: {
@@ -54,11 +54,6 @@ async function showUnregisterModal(body, context, client) {
         },
       ],
       callback_id: 'unregister',
-      submit: {
-        type: 'plain_text',
-        text: 'submit',
-        emoji: false,
-      },
     };
   } else {
     for (let i = 0; i < somoims.length; i += 1)

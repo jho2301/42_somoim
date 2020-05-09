@@ -73,7 +73,7 @@ Somoim.init(
   }
 );
 
-Somoim.sync({force: true});
+Somoim.sync();
 
 enum Campus {
   MAROC1337,

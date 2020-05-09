@@ -3,18 +3,20 @@
 <!-- gif -->
 
 ## 🚩 table of contents
-- Why we made 42Somoim?
-- Description
-- How To Use
-- TRY IT OUT!  <!-- workspace url ours, cuckcu -->
-- We are..
-- for contributors <!-- -  badge to wiki -->
-- Credits
-- support
-  <!-- buymeacoffe / beapatreon -->
+- [Why we made 42Somoim?](#why-we-made-42somoim)
+- [Description](#description)
+- [How To Use](#how-to-use)
+- [TRY IT OUT!](#try-it-out)
+- [We are..](#we-are)
+- [for contributors](#for-contributors)
+- [Credits](#credits)
+
 
 ## Why we made 42Somoim?
-```42서울 선발과정 당시 참가자들이 모인 슬랙채널에는 소규모 채널들이 다양하게 존재했습니다. 채널들은 저마다의 특별한 관심사들을 담고 피씨너들을 이어주는 역할을 하고 있었는데요. 하지만 본과정 채널로 옮기는 과정에서 채널들은 사라질 수 밖에 없었습니다. 그것을 지켜보면서 아쉬웠던 저희 팀은 그 문화를 다시 살려볼 수 없을까 궁리 했습니다.```
+> 42서울 선발과정 당시 참가자들이 모인 슬랙채널에는 소규모 채널들이 다양하게 존재했습니다.  
+>  채널들은 저마다의 특별한 관심사들을 담고 피씨너들을 이어주는 역할을 하고 있었는데요.  
+>   하지만 본과정 채널로 옮기는 과정에서 해당 채널들은 사라질 수 밖에 없었습니다.  
+>  그것을 지켜보며 아쉬운 마음을 갖고 있던 저희 팀은 그 문화를 다시 살려볼 수 없을까 궁리 했습니다.
 
 ## Description
 > *42내 자유로운 소규모 모임 활성화를 도와주는 슬랙 앱*  
@@ -31,13 +33,13 @@
 - 소모임에 참여하고 싶다면..
   - /somoim list
 
-- 소모임 해쳐!
+- 소모임 헤쳐!
   - /somoim unregister
 
 ## TRY IT OUT!
 
-- [42Somoim workspace](www.naver.com)
-- [Cuckoo workspace](www.naver.com)
+- [42Somoim workspace](https://join.slack.com/t/42somoim/shared_invite/zt-eamqts9g-y49qks3JXI6BisqtSZrq0w)
+- Cuckoo workspace - 42 프로그램 전용 채널
 
 ## We are..
 <img src="https://cultofthepartyparrot.com/parrots/hd/parrot.gif" alt="drawing" width="40"/>
@@ -53,7 +55,9 @@
   **Crew** Dohkim
 
 ## For contributors
-	Got something interesting you'd like to share? Learn about contributing.
+- 42소모임에 기여를 하고 싶으시다면
+-	Got something interesting you'd like to Contribute? 
+- [Learn about contributing](https://github.com/jho2301/42_Somoim/wiki/Contribution-Guidelines).
 
 ## Credits
 - Language
@@ -67,40 +71,3 @@
 - Development Method
   - `Pair Programming`, `Functional Division Development`
 
-
-# Contribution Guidelines
-
-## Developing
-
-0. Before you start, RTM if you're not ready [Bolt](https://slack.dev/bolt-js/concepts) [SlackAPI](https://api.slack.com/)
-
-1. install package
->```zsh
-> $ git clone https://github.com/jho2301/42_Somoim.git
-> $ cd 42_Somoim
-> $ npm install
-> $ npm install -g ts-node
->```
-2. set environment varaibles(you can use [dotenv](https://www.npmjs.com/package/dotenv))
-- SLACK_SIGNING_SECRET
-  - Signing secret from the slack app you created in step 0.
-- SLACK_BOT_TOKEN
-  - Bot token from the slack app you created in step 0.
-- COMMAND
-  - you can specify slack command of your app
-- DB_DIALECT
-  - setting database dialect ex)'postgres'
-- DB_USER
-- DB_PASSWORD
-- DB_NAME
-- DB_HOST
-- PORT
-
-3. run server
-```shell
-$ ts-node src/index.ts
-```
-
-## contributing
-1. issue
-2. pull request

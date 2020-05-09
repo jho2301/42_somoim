@@ -23,7 +23,7 @@ function promoteToRandomChannel(body, { emoji, somoimName, desc, url }): void {
 }
 
 async function showRegisterModal(body, context, client): Promise<void> {
-  const registerBlocks: KnownBlock[] = await blocks.getRegisterBlocks(body.user_id);
+  const registerBlocks: KnownBlock[] = await blocks.getRegisterBlocks(body);
   try {
     await client.views.open({
       token: context.botToken,

@@ -1,8 +1,10 @@
 FROM node:14
+ARG port=3000
+
 COPY package.json /somoim/package.json
-RUN cd /somoim; npm install; npm install pm2 -g
+RUN cd /somoim; npm install; npm install ts-node -g
 COPY . /somoim
-EXPOSE 3000
+EXPOSE $port
 WORKDIR /somoim
 
-CMD ["npx","pm2-runtime", "app.ts"]
+CMD ["ts-node", "src/index.ts"]
