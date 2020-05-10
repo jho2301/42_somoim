@@ -1,23 +1,32 @@
-# ![Untitled-5](https://user-images.githubusercontent.com/44419181/81495293-3fe20100-92ea-11ea-9712-e3b2baa7abc3.png)
+<h1 align="center"> 
+  <img src="https://user-images.githubusercontent.com/44419181/81495293-3fe20100-92ea-11ea-9712-e3b2baa7abc3.png" alt="drawing" width="300">
+  </br>
+  42Somoim
+</h1>
 
-<!-- gif -->
+<h2> 🚩 table of contents</h2>
 
-## 🚩 table of contents
-
-- [Why we made 42Somoim?](#why-we-made-42somoim)
-- [Description](#description)
-- [How To Use](#how-to-use)
-- [TRY IT OUT!](#try-it-out)
-- [We are..](#we-are)
-- [For contributors](#for-contributors)
-- [Credits](#credits)
+            
+<p align="center">
+  </br>
+  <a href="#why-we-made-42somoim">Why we made 42Somoim?</a> •
+  <a href="#description">Description</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#try-it-out">TRY IT OUT!</a>
+  </br>
+  <a href="#we-are">We are..</a> •
+  <a href="#for-contributors">For contributors</a> •
+  <a href="#credits">Credits</a> 
+</p>
 
 ## Why we made 42Somoim?
+<p align="center">
+42서울 선발과정 당시 참가자들이 모인 슬랙채널에는 소규모 채널들이 다양하게 존재했습니다.   </br>
+채널들은 저마다의 특별한 관심사들을 담고 피씨너들을 이어주는 역할을 하고 있었는데요.   </br>
+하지만 본과정 채널로 옮기는 과정에서 해당 채널들은 사라질 수 밖에 없었습니다.   </br>
+그것을 지켜보며 아쉬운 마음을 갖고 있던 저희 팀은 그 문화를 다시 살려볼 수 없을까 궁리 했습니다. </br>
+</p>
 
-> 42서울 선발과정 당시 참가자들이 모인 슬랙채널에는 소규모 채널들이 다양하게 존재했습니다.  
->  채널들은 저마다의 특별한 관심사들을 담고 피씨너들을 이어주는 역할을 하고 있었는데요.  
->  하지만 본과정 채널로 옮기는 과정에서 해당 채널들은 사라질 수 밖에 없었습니다.  
->  그것을 지켜보며 아쉬운 마음을 갖고 있던 저희 팀은 그 문화를 다시 살려볼 수 없을까 궁리 했습니다.
 
 ## Description
 
@@ -75,3 +84,4 @@
   - `github(with gitflow)`, `eslint (code convetion: airbnb)`, `prettier`, `Jira`, `slack`, `hangout`, `vscode liveshare`
 - Development Method
   - `Pair Programming`, `Functional Division Development`
+ 
