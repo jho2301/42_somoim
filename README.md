@@ -9,7 +9,7 @@
 - [How To Use](#how-to-use)
 - [TRY IT OUT!](#try-it-out)
 - [We are..](#we-are)
-- [for contributors](#for-contributors)
+- [For contributors](#for-contributors)
 - [Credits](#credits)
 
 ## Why we made 42Somoim?
