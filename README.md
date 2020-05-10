@@ -35,12 +35,13 @@
 
 - 소모임을 시작하고 싶다면..
   - /somoim register
+  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/register.gif" alt="drawing" width="400"/>
 - 소모임에 참여하고 싶다면..
-
   - /somoim list
-
+  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/list.gif" alt="drawing" width="400"/>
 - 소모임 헤쳐!
   - /somoim unregister
+  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/unregister.gif" alt="drawing" width="400"/>
 
 ## TRY IT OUT!
 
