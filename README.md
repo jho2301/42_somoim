@@ -3,9 +3,6 @@
   </br>
   42Somoim
 </h1>
-
-<h2> 🚩 table of contents</h2>
-
             
 <p align="center">
   </br>
@@ -20,12 +17,10 @@
 </p>
 
 ## Why we made 42Somoim?
-<p align="center">
 42서울 선발과정 당시 참가자들이 모인 슬랙채널에는 소규모 채널들이 다양하게 존재했습니다.   </br>
 채널들은 저마다의 특별한 관심사들을 담고 피씨너들을 이어주는 역할을 하고 있었는데요.   </br>
 하지만 본과정 채널로 옮기는 과정에서 해당 채널들은 사라질 수 밖에 없었습니다.   </br>
 그것을 지켜보며 아쉬운 마음을 갖고 있던 저희 팀은 그 문화를 다시 살려볼 수 없을까 궁리 했습니다. </br>
-</p>
 
 
 ## Description
@@ -53,6 +48,7 @@
 - Cuckoo workspace - 42 프로그램 전용 채널
 - 42Born2Code - 앱 올리고 싶습니다.
 ## We are..
+<div align="center"> 
 
 <img src="https://cultofthepartyparrot.com/parrots/hd/confusedparrot.gif" alt="drawing" width="40"/>
 
@@ -65,6 +61,7 @@
 <img src="https://cultofthepartyparrot.com/parrots/hd/dealwithitnowparrot.gif" alt="drawing" width="40"/> 
  
   **Crew** [Dohkim](https://github.com/DooooH)
+ </div>
 
 ## For contributors
 
