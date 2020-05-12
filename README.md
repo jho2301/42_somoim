@@ -40,15 +40,17 @@
   
   
   - 랜덤방에 홍보하기  
-      등록창에서 promotion옵션을 체크해주세요! 
-      당신이 속한 캠퍼스의 global random채널에 소모임 홍보 메세지를 앱이 대신 올려줍니다.
+      등록창에서 promotion옵션을 체크해주세요!  
+      당신이 속한 캠퍼스의 global random채널에 소모임 홍보 메세지를 소모임이 대신 올려줍니다.  
 - 소모임에 참여하고 싶다면..
   - /somoim list
   <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/list.gif" alt="drawing" width="400"/>
   
   
   - 랜덤방홍보 메세지 보고 참여하기  
-    join버튼을 누르면 채팅방 가입 페이지가 생성됩니다. 다른 소모임을 둘러보고 싶다면 `show other somoims`를 눌러주세요!
+    join버튼을 누르면 채팅방 가입 페이지가 생성됩니다.  
+    다른 소모임을 둘러보고 싶다면 `show other somoims`를 눌러주세요!  
+    
 - 소모임 헤쳐!
   - /somoim unregister
   <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/unregister.gif" alt="drawing" width="400"/>
