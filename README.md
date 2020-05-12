@@ -36,7 +36,7 @@
 
 - 소모임을 시작하고 싶다면..
   - /somoim register
-  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/register.gif" alt="drawing" width="400"/>
+  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/register.gif" alt="drawing" width="600"/>
   
   
   - 랜덤방에 홍보하기  
@@ -44,7 +44,7 @@
       당신이 속한 캠퍼스의 global random채널에 소모임 홍보 메세지를 소모임이 대신 올려줍니다.  
 - 소모임에 참여하고 싶다면..
   - /somoim list
-  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/list.gif" alt="drawing" width="400"/>
+  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/list.gif" alt="drawing" width="600"/>
   
   
   - 랜덤방홍보 메세지 보고 참여하기  
@@ -53,7 +53,7 @@
     
 - 소모임 헤쳐!
   - /somoim unregister
-  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/unregister.gif" alt="drawing" width="400"/>
+  <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/unregister.gif" alt="drawing" width="600"/>
 
 ## TRY IT OUT!
 
