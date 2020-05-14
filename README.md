@@ -41,7 +41,7 @@
   
   - 랜덤방에 홍보하기  
       등록창에서 promotion옵션을 체크해주세요!  
-      당신이 속한 캠퍼스의 global random채널에 소모임 홍보 메세지를 소모임이 대신 올려줍니다.  
+      당신이 속한 캠퍼스의 global random채널에 소모임 홍보 메세지를 소모임이 대신 올려줍니다. (20.05.12기준 12개 캠퍼스 지원)
 - 소모임에 참여하고 싶다면..
   - /somoim list
   <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/list.gif" alt="drawing" width="720"/>
