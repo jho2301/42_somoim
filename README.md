@@ -56,7 +56,7 @@
   <img src="https://s3.ap-northeast-2.amazonaws.com/tetris.dicemono.xyz/unregister.gif" alt="drawing" width="720"/>
 
 ## TRY IT OUT!
-
+ >*42서울 이메일로 가입해주세요*
 - [42Somoim workspace](https://join.slack.com/t/42somoim/shared_invite/zt-eamqts9g-y49qks3JXI6BisqtSZrq0w)
 - Cuckoo workspace - 42 프로그램 전용 채널
 - 42Born2Code - 앱 올리고 싶습니다.
